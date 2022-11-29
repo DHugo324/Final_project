@@ -5,8 +5,68 @@
   <meta charset="UTF-8">
   <title>OW2</title>
   <style type="text/css">
+    ::-webkit-scrollbar {
+      display: none
+    }
+
+    @font-face {
+      font-family: 'oxxo';
+      src: url('setofont.ttf');
+    }
+
+    .title_logo {
+      text-align: center;
+      width: auto;
+      font-family: oxxo, serif;
+      color: aliceblue;
+      font-size: 220%;
+    }
+
+    .info {
+      position: fixed;
+      top: 40%;
+      right: 0%;
+    }
+
     .hero {
-      border-style: solid;
+      position: fixed;
+      bottom: 0%;
+      width: auto;
+      display: flex;
+      height: 35%;
+      justify-content: center;
+    }
+
+    body {
+      background-color: black;
+      justify-content: center;
+    }
+
+    div {
+      height: auto;
+      width: auto;
+    }
+
+    .container {
+      position: fixed;
+      font-size: 140%;
+      text-align: left;
+      color: whitesmoke;
+      top: 89.4%;
+      left: 49.5%;
+      transform: translate(-50%, -50%);
+    }
+
+    .start {
+      border-radius: 40%;
+      position: fixed;
+      top: 90%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    audio {
+      vertical-align: bottom;
     }
   </style>
   <script>
@@ -18,6 +78,33 @@
       display(String(selected_hero) + ".png");
     }
     function init() {
+      document.getElementById("bow").volume = 0.3;
+
+      document.onmousemove = function (event) { //當滑鼠移動
+        mousemove(percent, event);
+      }
+
+      $("#start") //滑鼠滑入變成隨機大招圖標
+        .mouseover(function () {
+          var pic = Math.floor(Math.random() * 32 + 1);
+          $(this).find("img").attr("src", "ult/" + String(1 + pic).padStart(2, "0") + ".jpg");
+        })
+        .mouseout(function () {
+          $(this).find("img").attr("src", "start.png");
+        });
+
+      /*$("#about").click(function(){ //點擊開始後
+          document.getElementById("title_logo").innerHTML = "<p>made by<br>王家騏、戴毓辰<";
+      });*/
+
+      $("#ult").click(function () { //點擊開始後
+        $("#start").unbind();
+        $("#percent").hide();
+        $("#title_logo").fadeOut(1000);
+        $("#start").fadeOut(1000);
+        $("#hero").fadeIn(2000);
+      });
+
       for (var i = 0; i < hero.length; i++) {
         hero_select[hero[i]] = 0;
       }
