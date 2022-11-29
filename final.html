@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>OW2</title>
+  <title>OW2陣容模擬器</title>
   <style type="text/css">
     ::-webkit-scrollbar {
       display: none
@@ -38,7 +38,7 @@
     }
 
     .Hero {
-      width: 80;
+      width: 80px;
     }
 
     body {
@@ -73,17 +73,14 @@
       vertical-align: bottom;
     }
   </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script>
-    const hero_list = "半藏 卡西迪 壁壘機兵 士兵76 奪命女 小美 托比昂 死神 法拉 源氏 炸彈鼠 索潔恩 艾西 辛梅塔 迴音 閃光 駭影 安娜 巴帝斯特 慈悲 碧姬 禪亞塔 莫伊拉 路西歐 霧子 垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 D.VA";
+    const hero_list = "垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 D.VA 半藏 卡西迪 壁壘機兵 士兵76 奪命女 小美 托比昂 死神 法拉 源氏 炸彈鼠 索潔恩 艾西 辛梅塔 迴音 閃光 駭影 安娜 巴帝斯特 慈悲 碧姬 禪亞塔 莫伊拉 路西歐 霧子";
+    const tank_list = "垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 D.VA"
     const dps_list = "半藏 卡西迪 壁壘機兵 士兵76 奪命女 小美 托比昂 死神 法拉 源氏 炸彈鼠 索潔恩 艾西 辛梅塔 迴音 閃光 駭影";
     const sup_list = "安娜 巴帝斯特 慈悲 碧姬 禪亞塔 莫伊拉 路西歐 霧子"
-    const tank_list = "垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 D.VA"
     var hero = hero_list.split(' ');
     var hero_select = {}
-    function select(selected_hero) {
-      hero_select[selected_hero]++;
-      display(String(selected_hero) + ".png");
-    }
     function start() {
       document.getElementById("bow").volume = 0.3;
 
@@ -117,8 +114,7 @@
       }
       console.log(hero_select);
       for (var i = 0; i < hero.length; i++) {
-        var img = document.getElementById("Hero" + String(i + 1));
-        img.setAttribute("src", hero[i] + ".png");
+        var img = document.getElementById("Hero" + String(i));
         img.setAttribute("alt", hero[i]);
         img.addEventListener("click", function () { select(hero[i]); }, false);
       }
@@ -152,53 +148,75 @@
       var winroad = Math.sqrt(winy * winy + winx * winx);
       percent.innerHTML = ((100 - (posroad / winroad) * 100) * 1.03).toFixed(0);
     }
-    window.addEventListener("load", start, false);
+
+    function select(selected_hero) {
+      hero_select[selected_hero] = 1;
+      console.log(selected_hero);
+      console.log(hero_select[selected_hero]);
+      //display(String(selected_hero) + ".png");
+    }
+    function display(selected_hero) {
+
+    }
   </script>
 </head>
 
-<body>
+<body onload=start()>
+  <div id="title_logo" class="title_logo">
+    <img id="logo" class="logo" src="logo.png" width="500"><br>
+    <img id="title" class="title" src="title.png"> 陣容模擬器
+  </div>
+  <div id="info" class="info">
+    <a href=""><img src="ppt.png" width="40"></a><br>
+    <img id="about" src="about.png" width="40">
+  </div>
+  <audio id="bow" autoplay loop src="BOW.mp3"></audio>
+  <div class="container" id="percent"></div>
+  <div id="start">
+    <img id="ult" class="start" src="start.png" width="130">
+  </div>
   <div>
     <div id="hero" class="hero" style="display:none">
-      <div style="text-align:center;width: 20%;overflow: scroll;">
-        <img src="hero/tank0.png" class="Hero" id="Hero0" alt="">
-        <img src="hero/tank1.png" class="Hero" id="Hero1" alt="">
-        <img src="hero/tank2.png" class="Hero" id="Hero2" alt="">
-        <img src="hero/tank3.png" class="Hero" id="Hero3" alt="">
-        <img src="hero/tank4.png" class="Hero" id="Hero4" alt="">
-        <img src="hero/tank5.png" class="Hero" id="Hero5" alt="">
-        <img src="hero/tank6.png" class="Hero" id="Hero6" alt="">
-        <img src="hero/tank7.png" class="Hero" id="Hero7" alt="">
-        <img src="hero/tank8.png" class="Hero" id="Hero8" alt="">
-        <img src="hero/tank9.png" class="Hero" id="Hero9" alt="">
-        <img src="hero/tank10.png" class="Hero" id="Hero10" alt="">
-        <img src="hero/tank11.png" class="Hero" id="Hero11" alt="">
-        <img src="hero/tank12.png" class="Hero" id="Hero12" alt="">
-        <img src="hero/tank13.png" class="Hero" id="Hero13" alt="">
-        <img src="hero/tank14.png" class="Hero" id="Hero14" alt="">
-        <img src="hero/tank15.png" class="Hero" id="Hero15" alt="">
-        <img src="hero/tank16.png" class="Hero" id="Hero16" alt="">
+      <div style="text-align:center; width: 20%; overflow: scroll;">
+        <img src="hero/tank0.png" class="Hero" id="Hero0" alt="" onclick="selct(hero[0])">
+        <img src="hero/tank1.png" class="Hero" id="Hero1" alt="" onclick="selct(hero[1])">
+        <img src="hero/tank2.png" class="Hero" id="Hero2" alt="" onclick="selct(hero[2])">
+        <img src="hero/tank3.png" class="Hero" id="Hero3" alt="" onclick="selct(hero[3])">
+        <img src="hero/tank4.png" class="Hero" id="Hero4" alt="" onclick="selct(hero[4])">
+        <img src="hero/tank5.png" class="Hero" id="Hero5" alt="" onclick="selct(hero[5])">
+        <img src="hero/tank6.png" class="Hero" id="Hero6" alt="" onclick="selct(hero[6])">
+        <img src="hero/tank7.png" class="Hero" id="Hero7" alt="" onclick="selct(hero[7])">
+        <img src="hero/tank8.png" class="Hero" id="Hero8" alt="" onclick="selct(hero[8])">
+        <img src="hero/tank9.png" class="Hero" id="Hero9" alt="" onclick="selct(hero[9])">
       </div>
-      <div style="text-align:center;width: 35%;overflow: scroll;">
-        <img src="hero/sup0.png" class="Hero" id="Hero16" alt="">
-        <img src="hero/sup1.png" class="Hero" id="Hero17" alt="">
-        <img src="hero/sup2.png" class="Hero" id="Hero18" alt="">
-        <img src="hero/sup3.png" class="Hero" id="Hero19" alt="">
-        <img src="hero/sup4.png" class="Hero" id="Hero20" alt="">
-        <img src="hero/sup5.png" class="Hero" id="Hero21" alt="">
-        <img src="hero/sup6.png" class="Hero" id="Hero22" alt="">
-        <img src="hero/sup7.png" class="Hero" id="Hero23" alt="">
+      <div style="text-align:center; width: 35%; overflow: scroll;">
+        <img src="hero/dps0.png" class="Hero" id="Hero10" alt="" onclick="select(hero[10])">
+        <img src="hero/dps1.png" class="Hero" id="Hero11" alt="" onclick="select(hero[11])">
+        <img src="hero/dps2.png" class="Hero" id="Hero12" alt="" onclick="select(hero[12])">
+        <img src="hero/dps3.png" class="Hero" id="Hero13" alt="" onclick="select(hero[13])">
+        <img src="hero/dps4.png" class="Hero" id="Hero14" alt="" onclick="select(hero[14])">
+        <img src="hero/dps5.png" class="Hero" id="Hero15" alt="" onclick="select(hero[15])">
+        <img src="hero/dps6.png" class="Hero" id="Hero16" alt="" onclick="select(hero[16])">
+        <img src="hero/dps7.png" class="Hero" id="Hero17" alt="" onclick="select(hero[17])">
+        <img src="hero/dps8.png" class="Hero" id="Hero18" alt="" onclick="select(hero[18])">
+        <img src="hero/dps9.png" class="Hero" id="Hero19" alt="" onclick="select(hero[19])">
+        <img src="hero/dps10.png" class="Hero" id="Hero20" alt="" onclick="select(hero[20])">
+        <img src="hero/dps11.png" class="Hero" id="Hero21" alt="" onclick="select(hero[21])">
+        <img src="hero/dps12.png" class="Hero" id="Hero22" alt="" onclick="select(hero[22])">
+        <img src="hero/dps13.png" class="Hero" id="Hero23" alt="" onclick="select(hero[23])">
+        <img src="hero/dps14.png" class="Hero" id="Hero24" alt="" onclick="select(hero[24])">
+        <img src="hero/dps15.png" class="Hero" id="Hero25" alt="" onclick="select(hero[25])">
+        <img src="hero/dps16.png" class="Hero" id="Hero26" alt="" onclick="select(hero[26])">
       </div>
-      <div style="text-align:center;width: 20%;overflow: scroll;">
-        <img src="hero26.png" class="Hero" id="Hero26" alt="">
-        <img src="hero27.png" class="Hero" id="Hero27" alt="">
-        <img src="hero28.png" class="Hero" id="Hero28" alt="">
-        <img src="hero29.png" class="Hero" id="Hero29" alt="">
-        <img src="hero30.png" class="Hero" id="Hero30" alt="">
-        <img src="hero31.png" class="Hero" id="Hero31" alt="">
-        <img src="hero32.png" class="Hero" id="Hero32" alt="">
-        <img src="hero33.png" class="Hero" id="Hero33" alt="">
-        <img src="hero34.png" class="Hero" id="Hero34" alt="">
-        <img src="hero35.png" class="Hero" id="Hero35" alt="">
+      <div style="text-align:center; width: 20%; overflow: scroll;">
+        <img src="hero/sup0.png" class="Hero" id="Hero27" alt="" onclick="select(hero[27])">
+        <img src="hero/sup1.png" class="Hero" id="Hero28" alt="" onclick="select(hero[28])">
+        <img src="hero/sup2.png" class="Hero" id="Hero29" alt="" onclick="select(hero[29])">
+        <img src="hero/sup3.png" class="Hero" id="Hero30" alt="" onclick="select(hero[30])">
+        <img src="hero/sup4.png" class="Hero" id="Hero31" alt="" onclick="select(hero[31])">
+        <img src="hero/sup5.png" class="Hero" id="Hero32" alt="" onclick="select(hero[32])">
+        <img src="hero/sup6.png" class="Hero" id="Hero33" alt="" onclick="select(hero[33])">
+        <img src="hero/sup7.png" class="Hero" id="Hero34" alt="" onclick="select(hero[34])">
       </div>
     </div>
 </body>
