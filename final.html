@@ -37,6 +37,10 @@
       justify-content: center;
     }
 
+    .Hero {
+      width: 80;
+    }
+
     body {
       background-color: black;
       justify-content: center;
@@ -70,7 +74,10 @@
     }
   </style>
   <script>
-    const hero_list = "DVA 半藏 卡西迪 垃圾鎮女王 壁壘機兵 士兵76 奪命女 安娜 小美 巴帝斯特 席格馬 慈悲 托比昂 攔路豬 札莉雅 歐瑞莎 死神 毀滅拳王 法拉 半藏 溫斯頓 火爆鋼球 炸彈鼠 碧姬 禪亞塔 索潔恩 艾西 莫伊拉 萊茵哈特 路西歐 辛梅塔 迴音 閃光 霧子 駭影";
+    const hero_list = "半藏 卡西迪 壁壘機兵 士兵76 奪命女 小美 托比昂 死神 法拉 源氏 炸彈鼠 索潔恩 艾西 辛梅塔 迴音 閃光 駭影 安娜 巴帝斯特 慈悲 碧姬 禪亞塔 莫伊拉 路西歐 霧子 垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 D.VA";
+    const dps_list = "半藏 卡西迪 壁壘機兵 士兵76 奪命女 小美 托比昂 死神 法拉 源氏 炸彈鼠 索潔恩 艾西 辛梅塔 迴音 閃光 駭影";
+    const sup_list = "安娜 巴帝斯特 慈悲 碧姬 禪亞塔 莫伊拉 路西歐 霧子"
+    const tank_list = "垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 D.VA"
     var hero = hero_list.split(' ');
     var hero_select = {}
     function select(selected_hero) {
@@ -151,42 +158,49 @@
 
 <body>
   <div>
-    <img src="hero1.png" class="Hero" id="Hero1" alt="">
-    <img src="hero2.png" class="Hero" id="Hero2" alt="">
-    <img src="hero3.png" class="Hero" id="Hero3" alt="">
-    <img src="hero4.png" class="Hero" id="Hero4" alt="">
-    <img src="hero5.png" class="Hero" id="Hero5" alt="">
-    <img src="hero6.png" class="Hero" id="Hero6" alt="">
-    <img src="hero7.png" class="Hero" id="Hero7" alt="">
-    <img src="hero8.png" class="Hero" id="Hero8" alt="">
-    <img src="hero9.png" class="Hero" id="Hero9" alt="">
-    <img src="hero10.png" class="Hero" id="Hero10" alt="">
-    <img src="hero11.png" class="Hero" id="Hero11" alt="">
-    <img src="hero12.png" class="Hero" id="Hero12" alt="">
-    <img src="hero13.png" class="Hero" id="Hero13" alt="">
-    <img src="hero14.png" class="Hero" id="Hero14" alt="">
-    <img src="hero15.png" class="Hero" id="Hero15" alt="">
-    <img src="hero16.png" class="Hero" id="Hero16" alt="">
-    <img src="hero17.png" class="Hero" id="Hero17" alt="">
-    <img src="hero18.png" class="Hero" id="Hero18" alt="">
-    <img src="hero19.png" class="Hero" id="Hero19" alt="">
-    <img src="hero20.png" class="Hero" id="Hero20" alt="">
-    <img src="hero21.png" class="Hero" id="Hero21" alt="">
-    <img src="hero22.png" class="Hero" id="Hero22" alt="">
-    <img src="hero23.png" class="Hero" id="Hero23" alt="">
-    <img src="hero24.png" class="Hero" id="Hero24" alt="">
-    <img src="hero25.png" class="Hero" id="Hero25" alt="">
-    <img src="hero26.png" class="Hero" id="Hero26" alt="">
-    <img src="hero27.png" class="Hero" id="Hero27" alt="">
-    <img src="hero28.png" class="Hero" id="Hero28" alt="">
-    <img src="hero29.png" class="Hero" id="Hero29" alt="">
-    <img src="hero30.png" class="Hero" id="Hero30" alt="">
-    <img src="hero31.png" class="Hero" id="Hero31" alt="">
-    <img src="hero32.png" class="Hero" id="Hero32" alt="">
-    <img src="hero33.png" class="Hero" id="Hero33" alt="">
-    <img src="hero34.png" class="Hero" id="Hero34" alt="">
-    <img src="hero35.png" class="Hero" id="Hero35" alt="">
-  </div>
+    <div id="hero" class="hero" style="display:none">
+      <div style="text-align:center;width: 20%;overflow: scroll;">
+        <img src="hero/tank0.png" class="Hero" id="Hero0" alt="">
+        <img src="hero/tank1.png" class="Hero" id="Hero1" alt="">
+        <img src="hero/tank2.png" class="Hero" id="Hero2" alt="">
+        <img src="hero/tank3.png" class="Hero" id="Hero3" alt="">
+        <img src="hero/tank4.png" class="Hero" id="Hero4" alt="">
+        <img src="hero/tank5.png" class="Hero" id="Hero5" alt="">
+        <img src="hero/tank6.png" class="Hero" id="Hero6" alt="">
+        <img src="hero/tank7.png" class="Hero" id="Hero7" alt="">
+        <img src="hero/tank8.png" class="Hero" id="Hero8" alt="">
+        <img src="hero/tank9.png" class="Hero" id="Hero9" alt="">
+        <img src="hero/tank10.png" class="Hero" id="Hero10" alt="">
+        <img src="hero/tank11.png" class="Hero" id="Hero11" alt="">
+        <img src="hero/tank12.png" class="Hero" id="Hero12" alt="">
+        <img src="hero/tank13.png" class="Hero" id="Hero13" alt="">
+        <img src="hero/tank14.png" class="Hero" id="Hero14" alt="">
+        <img src="hero/tank15.png" class="Hero" id="Hero15" alt="">
+        <img src="hero/tank16.png" class="Hero" id="Hero16" alt="">
+      </div>
+      <div style="text-align:center;width: 35%;overflow: scroll;">
+        <img src="hero/sup0.png" class="Hero" id="Hero16" alt="">
+        <img src="hero/sup1.png" class="Hero" id="Hero17" alt="">
+        <img src="hero/sup2.png" class="Hero" id="Hero18" alt="">
+        <img src="hero/sup3.png" class="Hero" id="Hero19" alt="">
+        <img src="hero/sup4.png" class="Hero" id="Hero20" alt="">
+        <img src="hero/sup5.png" class="Hero" id="Hero21" alt="">
+        <img src="hero/sup6.png" class="Hero" id="Hero22" alt="">
+        <img src="hero/sup7.png" class="Hero" id="Hero23" alt="">
+      </div>
+      <div style="text-align:center;width: 20%;overflow: scroll;">
+        <img src="hero26.png" class="Hero" id="Hero26" alt="">
+        <img src="hero27.png" class="Hero" id="Hero27" alt="">
+        <img src="hero28.png" class="Hero" id="Hero28" alt="">
+        <img src="hero29.png" class="Hero" id="Hero29" alt="">
+        <img src="hero30.png" class="Hero" id="Hero30" alt="">
+        <img src="hero31.png" class="Hero" id="Hero31" alt="">
+        <img src="hero32.png" class="Hero" id="Hero32" alt="">
+        <img src="hero33.png" class="Hero" id="Hero33" alt="">
+        <img src="hero34.png" class="Hero" id="Hero34" alt="">
+        <img src="hero35.png" class="Hero" id="Hero35" alt="">
+      </div>
+    </div>
 </body>
 
 </html>
