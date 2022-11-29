@@ -77,7 +77,7 @@
       hero_select[selected_hero]++;
       display(String(selected_hero) + ".png");
     }
-    function init() {
+    function start() {
       document.getElementById("bow").volume = 0.3;
 
       document.onmousemove = function (event) { //當滑鼠移動
@@ -116,7 +116,36 @@
         img.addEventListener("click", function () { select(hero[i]); }, false);
       }
     }
-    window.addEventListener("load", init, false);
+
+    function getPosition(element) { //拿到屬標位置
+      var x = 0;
+      var y = 0;
+      let rect = element.getBoundingClientRect();
+      x += rect.x;
+      y += rect.y;
+
+      return { x: x, y: y };
+    }
+
+    var mousemove = function (percent, event) {  //滑鼠移動改變數字
+      var posX = 0, posY = 0;
+      var e = event || window.event;
+      if (e.pageX || e.pageY) {
+        posX = e.pageX;
+        posY = e.pageY;
+      } else if (e.clientX || e.clientY) {
+        posX = event.clientX + document.documentElement.scrollLeft + document.body.scrollLeft;
+        posY = event.clientY + document.documentElement.scrollTop + document.body.scrollTop;
+      }
+      posY -= getPosition(percent).y;
+      posX -= getPosition(percent).x;
+      winy = getPosition(percent).y;
+      winx = window.innerWidth - getPosition(percent).x;
+      var posroad = Math.sqrt((posY) * (posY) + (posX) * (posX));
+      var winroad = Math.sqrt(winy * winy + winx * winx);
+      percent.innerHTML = ((100 - (posroad / winroad) * 100) * 1.03).toFixed(0);
+    }
+    window.addEventListener("load", start, false);
   </script>
 </head>
 
