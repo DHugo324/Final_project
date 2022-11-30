@@ -91,6 +91,42 @@
     var hero = hero_list.split(' ');
     var hero_select = {};
     var counter_cnt = {};
+    var counter_list = [
+      [hero[12], hero[31], hero[15], hero[4]],
+      [hero[4], hero[17], hero[19], hero[8]],
+      [hero[27], hero[3], hero[14], hero[17]],
+      [hero[18], hero[26], hero[31], hero[12]],
+      [hero[6], hero[31], hero[20], hero[17]],
+      [hero[17], hero[18], hero[19], hero[24]],
+      [hero[2], hero[27], hero[20], hero[32]],
+      [hero[26], hero[17], hero[12], hero[18]],
+      [hero[17], hero[12], hero[18], hero[20]],
+      [hero[26], hero[3], hero[2], hero[20]],
+      [hero[18], hero[30], hero[3], hero[27]],
+      [hero[14], hero[6], hero[28], hero[25]],
+      [hero[2], hero[20], hero[27], hero[17]],
+      [hero[2], hero[6], hero[19], hero[1]],
+      [hero[6], hero[7], hero[21], hero[8]],
+      [hero[18], hero[26], hero[24], hero[13]],
+      [hero[18], hero[14], hero[27], hero[24]],
+      [hero[14], hero[24], hero[18], hero[31]],
+      [hero[14], hero[10], hero[21], hero[13]],
+      [hero[18], hero[30], hero[3], hero[27]],
+      [hero[18], hero[34], hero[24], hero[14]],
+      [hero[6], hero[3], hero[14], hero[33]],
+      [hero[14], hero[10], hero[25], hero[8]],
+      [hero[9], hero[18], hero[6], hero[0]],
+      [hero[14], hero[21], hero[10], hero[26]],
+      [hero[6], hero[30], hero[18], hero[16]],
+      [hero[10], hero[20], hero[14], hero[25]],
+      [hero[9], hero[14], hero[0], hero[25]],
+      [hero[9], hero[19], hero[10], hero[2]],
+      [hero[14], hero[6], hero[2], hero[21]],
+      [hero[12], hero[18], hero[20], hero[10]],
+      [hero[0], hero[6], hero[14], hero[19]],
+      [hero[14], hero[26], hero[7], hero[6]],
+      [hero[18], hero[16], hero[32], hero[12]],
+      [hero[14], hero[26], hero[21], hero[25]],];
     function start() {
       document.getElementById("bow").volume = 0.3;
 
@@ -121,7 +157,7 @@
 
       for (var i = 0; i < hero.length; i++) {
         hero_select[hero[i]] = 0;
-        counter_cnt[hero[i]] = 0;
+        counter_cnt[hero[i]] = parseInt(0);
       }
       console.log(hero);
       console.log(hero_select);
@@ -162,238 +198,50 @@
       percent.innerHTML = ((100 - (posroad / winroad) * 100) * 1.03).toFixed(0);
     }
 
-    function select(selected_hero) {
-      if (hero_select[selected_hero] == 1) {//取消選取
-        hero_select[selected_hero] = 0;
-        $("#" + selected_hero).fadeTo("fast", 1);
+    function select(selected_hero_idx) {
+      if (hero_select[hero[selected_hero_idx]] == 1) {//取消選取
+        hero_select[hero[selected_hero_idx]] = 0;
+        counter_counter(selected_hero_idx, 0);
+        $("#" + hero[selected_hero_idx]).fadeTo("fast", 1);
       }
       else {//選取
-        hero_select[selected_hero] = 1;
-        //counter_counter(selected_hero);
-        $("#" + selected_hero).fadeTo("fast", 0.3);
+        hero_select[hero[selected_hero_idx]] = 1;
+        counter_counter(selected_hero_idx, 1);
+        $("#" + hero[selected_hero_idx]).fadeTo("fast", 0.3);
       }
       display();
     }
     function display() {
+      var tank_cnt = 0, dps_cnt = 0, sup_cnt = 0;
       msg = "";
       for (var i = 0; i < hero.length; i++) {
-        if (hero_select[hero[i]])
+        if (hero_select[hero[i]]) {
           msg += "<img src='" + document.getElementById(hero[i]).getAttribute("src") + "' class='Hero' id='enemy0'>";
+          if (i <= 9) tank_cnt++;
+          else if (i <= 26) dps_cnt++;
+          else if (i <= 34) sup_cnt++;
+        }
       }
       document.getElementById("enemy").innerHTML = msg;
+
+      // Waring or alert 陣容不合理
+      // if(tank_cnt>?)
+      // if(dps_cnt>?)
+      // if(sup_cnt>?)
     }
 
-    function counter_counter(selected_hero) {
-      if (selected_hero == hero[0]) {
-        counter_cnt[hero[12]]++;
-        counter_cnt[hero[31]]++;
-        counter_cnt[hero[15]]++;
-        counter_cnt[hero[4]]++;
+    function counter_counter(selected_hero_idx, f) {
+      if (f == 1) {
+        for (var i = 0; i < 4; i++) {
+          counter_cnt[counter_list[selected_hero_idx][i]]++;
+        }
       }
-      else if (selected_hero == hero[1]) {
-        counter_cnt[hero[4]]++;
-        counter_cnt[hero[17]]++;
-        counter_cnt[hero[19]]++;
-        counter_cnt[hero[8]]++;
+      else {
+        for (var i = 0; i < 4; i++) {
+          counter_cnt[counter_list[selected_hero_idx][i]]--;
+        }
       }
-      else if (selected_hero == hero[2]) {
-        counter_cnt[hero[27]]++;
-        counter_cnt[hero[3]]++;
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[17]]++;
-      }
-      else if (selected_hero == hero[3]) {
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[26]]++;
-        counter_cnt[hero[31]]++;
-        counter_cnt[hero[12]]++;
-      }
-      else if (selected_hero == hero[4]) {
-        counter_cnt[hero[6]]++;
-        counter_cnt[hero[31]]++;
-        counter_cnt[hero[20]]++;
-        counter_cnt[hero[17]]++;
-      }
-      else if (selected_hero == hero[5]) {
-        counter_cnt[hero[17]]++;
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[19]]++;
-        counter_cnt[hero[24]]++;
-      }
-      else if (selected_hero == hero[6]) {
-        counter_cnt[hero[2]]++;
-        counter_cnt[hero[27]]++;
-        counter_cnt[hero[20]]++;
-        counter_cnt[hero[32]]++;
-      }
-      else if (selected_hero == hero[7]) {
-        counter_cnt[hero[26]]++;
-        counter_cnt[hero[17]]++;
-        counter_cnt[hero[12]]++;
-        counter_cnt[hero[18]]++;
-      }
-      else if (selected_hero == hero[8]) {
-        counter_cnt[hero[17]]++;
-        counter_cnt[hero[12]]++;
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[20]]++;
-      }
-      else if (selected_hero == hero[9]) {
-        counter_cnt[hero[26]]++;
-        counter_cnt[hero[3]]++;
-        counter_cnt[hero[2]]++;
-        counter_cnt[hero[20]]++;
-      }
-      else if (selected_hero == hero[10]) {
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[30]]++;
-        counter_cnt[hero[3]]++;
-        counter_cnt[hero[27]]++;
-      }
-      else if (selected_hero == hero[11]) {
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[6]]++;
-        counter_cnt[hero[28]]++;
-        counter_cnt[hero[25]]++;
-      }
-      else if (selected_hero == hero[12]) {
-        counter_cnt[hero[2]]++;
-        counter_cnt[hero[20]]++;
-        counter_cnt[hero[27]]++;
-        counter_cnt[hero[17]]++;
-      }
-      else if (selected_hero == hero[13]) {
-        counter_cnt[hero[2]]++;
-        counter_cnt[hero[6]]++;
-        counter_cnt[hero[19]]++;
-        counter_cnt[hero[1]]++;
-      }
-      else if (selected_hero == hero[14]) {
-        counter_cnt[hero[6]]++;
-        counter_cnt[hero[7]]++;
-        counter_cnt[hero[21]]++;
-        counter_cnt[hero[8]]++;
-      }
-      else if (selected_hero == hero[15]) {
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[26]]++;
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[13]]++;
-      }
-      else if (selected_hero == hero[16]) {
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[27]]++;
-        counter_cnt[hero[24]]++;
-      }
-      else if (selected_hero == hero[17]) {
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[24]]++;
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[31]]++;
-      }
-      else if (selected_hero == hero[18]) {
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[10]]++;
-        counter_cnt[hero[21]]++;
-        counter_cnt[hero[13]]++;
-      }
-      else if (selected_hero == hero[19]) {
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[30]]++;
-        counter_cnt[hero[3]]++;
-        counter_cnt[hero[27]]++;
-      }
-      else if (selected_hero == hero[20]) {
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[34]]++;
-        counter_cnt[hero[24]]++;
-        counter_cnt[hero[14]]++;
-      }
-      else if (selected_hero == hero[21]) {
-        counter_cnt[hero[6]]++;
-        counter_cnt[hero[3]]++;
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[33]]++;
-      }
-      else if (selected_hero == hero[22]) {
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[10]]++;
-        counter_cnt[hero[25]]++;
-        counter_cnt[hero[8]]++;
-      }
-      else if (selected_hero == hero[23]) {
-        counter_cnt[hero[9]]++;
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[6]]++;
-        counter_cnt[hero[0]]++;
-      }
-      else if (selected_hero == hero[24]) {
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[21]]++;
-        counter_cnt[hero[10]]++;
-        counter_cnt[hero[26]]++;
-      }
-      else if (selected_hero == hero[25]) {
-        counter_cnt[hero[6]]++;
-        counter_cnt[hero[30]]++;
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[16]]++;
-      }
-      else if (selected_hero == hero[26]) {
-        counter_cnt[hero[10]]++;
-        counter_cnt[hero[20]]++;
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[25]]++;
-      }
-      else if (selected_hero == hero[27]) {
-        counter_cnt[hero[9]]++;
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[0]]++;
-        counter_cnt[hero[25]]++;
-      }
-      else if (selected_hero == hero[28]) {
-        counter_cnt[hero[9]]++;
-        counter_cnt[hero[19]]++;
-        counter_cnt[hero[10]]++;
-        counter_cnt[hero[2]]++;
-      }
-      else if (selected_hero == hero[29]) {
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[6]]++;
-        counter_cnt[hero[2]]++;
-        counter_cnt[hero[21]]++;
-      }
-      else if (selected_hero == hero[30]) {
-        counter_cnt[hero[12]]++;
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[20]]++;
-        counter_cnt[hero[10]]++;
-      }
-      else if (selected_hero == hero[31]) {
-        counter_cnt[hero[0]]++;
-        counter_cnt[hero[6]]++;
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[19]]++;
-      }
-      else if (selected_hero == hero[32]) {
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[26]]++;
-        counter_cnt[hero[7]]++;
-        counter_cnt[hero[6]]++;
-      }
-      else if (selected_hero == hero[33]) {
-        counter_cnt[hero[18]]++;
-        counter_cnt[hero[16]]++;
-        counter_cnt[hero[32]]++;
-        counter_cnt[hero[12]]++;
-      }
-      else if (selected_hero == hero[34]) {
-        counter_cnt[hero[14]]++;
-        counter_cnt[hero[26]]++;
-        counter_cnt[hero[7]]++;
-        counter_cnt[hero[6]]++;
-      }
+      console.log(counter_cnt);
     }
   </script>
 </head>
@@ -418,45 +266,45 @@
 
   <div id="hero" class="hero" style="display:none">
     <div style="text-align:center; width: 20%; overflow: scroll;">
-      <img src="hero/tank0.png" class="Hero" id="垃圾鎮女王" alt="垃圾鎮女王" onclick="select(hero[0])">
-      <img src="hero/tank1.png" class="Hero" id="席格馬" alt="席格馬" onclick="select(hero[1])">
-      <img src="hero/tank2.png" class="Hero" id="攔路豬" alt="攔路豬" onclick="select(hero[2])">
-      <img src="hero/tank3.png" class="Hero" id="札莉雅" alt="札莉雅" onclick="select(hero[3])">
-      <img src="hero/tank4.png" class="Hero" id="歐瑞莎" alt="歐瑞莎" onclick="select(hero[4])">
-      <img src="hero/tank5.png" class="Hero" id="毀滅拳王" alt="毀滅拳王" onclick="select(hero[5])">
-      <img src="hero/tank6.png" class="Hero" id="溫斯頓" alt="溫斯頓" onclick="select(hero[6])">
-      <img src="hero/tank7.png" class="Hero" id="火爆鋼球" alt="火爆鋼球" onclick="select(hero[7])">
-      <img src="hero/tank8.png" class="Hero" id="萊茵哈特" alt="萊茵哈特" onclick="select(hero[8])">
-      <img src="hero/tank9.png" class="Hero" id="D.VA" alt="D.VA" onclick="select(hero[9])">
+      <img src="hero/tank0.png" class="Hero" id="垃圾鎮女王" alt="垃圾鎮女王" onclick="select(0)">
+      <img src="hero/tank1.png" class="Hero" id="席格馬" alt="席格馬" onclick="select(1)">
+      <img src="hero/tank2.png" class="Hero" id="攔路豬" alt="攔路豬" onclick="select(2)">
+      <img src="hero/tank3.png" class="Hero" id="札莉雅" alt="札莉雅" onclick="select(3)">
+      <img src="hero/tank4.png" class="Hero" id="歐瑞莎" alt="歐瑞莎" onclick="select(4)">
+      <img src="hero/tank5.png" class="Hero" id="毀滅拳王" alt="毀滅拳王" onclick="select(5)">
+      <img src="hero/tank6.png" class="Hero" id="溫斯頓" alt="溫斯頓" onclick="select(6)">
+      <img src="hero/tank7.png" class="Hero" id="火爆鋼球" alt="火爆鋼球" onclick="select(7)">
+      <img src="hero/tank8.png" class="Hero" id="萊茵哈特" alt="萊茵哈特" onclick="select(8)">
+      <img src="hero/tank9.png" class="Hero" id="D.VA" alt="D.VA" onclick="select(9)">
     </div>
     <div style="text-align:center; width: 35%; overflow: scroll;">
-      <img src="hero/dps0.png" class="Hero" id="半藏" alt="半藏" onclick="select(hero[10])">
-      <img src="hero/dps1.png" class="Hero" id="卡西迪" alt="卡西迪" onclick="select(hero[11])">
-      <img src="hero/dps2.png" class="Hero" id="壁壘機兵" alt="壁壘機兵" onclick="select(hero[12])">
-      <img src="hero/dps3.png" class="Hero" id="士兵76" alt="士兵76" onclick="select(hero[13])">
-      <img src="hero/dps4.png" class="Hero" id="奪命女" alt="奪命女" onclick="select(hero[14])">
-      <img src="hero/dps5.png" class="Hero" id="小美" alt="小美" onclick="select(hero[15])">
-      <img src="hero/dps6.png" class="Hero" id="托比昂" alt="托比昂" onclick="select(hero[16])">
-      <img src="hero/dps7.png" class="Hero" id="死神" alt="死神" onclick="select(hero[17])">
-      <img src="hero/dps8.png" class="Hero" id="法拉" alt="法拉" onclick="select(hero[18])">
-      <img src="hero/dps9.png" class="Hero" id="源氏" alt="源氏" onclick="select(hero[19])">
-      <img src="hero/dps10.png" class="Hero" id="炸彈鼠" alt="炸彈鼠" onclick="select(hero[20])">
-      <img src="hero/dps11.png" class="Hero" id="索潔恩" alt="索潔恩" onclick="select(hero[21])">
-      <img src="hero/dps12.png" class="Hero" id="艾西" alt="艾西" onclick="select(hero[22])">
-      <img src="hero/dps13.png" class="Hero" id="辛梅塔" alt="辛梅塔" onclick="select(hero[23])">
-      <img src="hero/dps14.png" class="Hero" id="迴音" alt="迴音" onclick="select(hero[24])">
-      <img src="hero/dps15.png" class="Hero" id="閃光" alt="閃光" onclick="select(hero[25])">
-      <img src="hero/dps16.png" class="Hero" id="駭影" alt="駭影" onclick="select(hero[26])">
+      <img src="hero/dps0.png" class="Hero" id="半藏" alt="半藏" onclick="select(10)">
+      <img src="hero/dps1.png" class="Hero" id="卡西迪" alt="卡西迪" onclick="select(11)">
+      <img src="hero/dps2.png" class="Hero" id="壁壘機兵" alt="壁壘機兵" onclick="select(12)">
+      <img src="hero/dps3.png" class="Hero" id="士兵76" alt="士兵76" onclick="select(13)">
+      <img src="hero/dps4.png" class="Hero" id="奪命女" alt="奪命女" onclick="select(14)">
+      <img src="hero/dps5.png" class="Hero" id="小美" alt="小美" onclick="select(15)">
+      <img src="hero/dps6.png" class="Hero" id="托比昂" alt="托比昂" onclick="select(16)">
+      <img src="hero/dps7.png" class="Hero" id="死神" alt="死神" onclick="select(17)">
+      <img src="hero/dps8.png" class="Hero" id="法拉" alt="法拉" onclick="select(18)">
+      <img src="hero/dps9.png" class="Hero" id="源氏" alt="源氏" onclick="select(19)">
+      <img src="hero/dps10.png" class="Hero" id="炸彈鼠" alt="炸彈鼠" onclick="select(20)">
+      <img src="hero/dps11.png" class="Hero" id="索潔恩" alt="索潔恩" onclick="select(21)">
+      <img src="hero/dps12.png" class="Hero" id="艾西" alt="艾西" onclick="select(22)">
+      <img src="hero/dps13.png" class="Hero" id="辛梅塔" alt="辛梅塔" onclick="select(23)">
+      <img src="hero/dps14.png" class="Hero" id="迴音" alt="迴音" onclick="select(24)">
+      <img src="hero/dps15.png" class="Hero" id="閃光" alt="閃光" onclick="select(25)">
+      <img src="hero/dps16.png" class="Hero" id="駭影" alt="駭影" onclick="select(26)">
     </div>
     <div style="text-align:center; width: 20%; overflow: scroll;">
-      <img src="hero/sup0.png" class="Hero" id="安娜" alt="安娜" onclick="select(hero[27])">
-      <img src="hero/sup1.png" class="Hero" id="巴帝斯特" alt="巴帝斯特" onclick="select(hero[28])">
-      <img src="hero/sup2.png" class="Hero" id="慈悲" alt="慈悲" onclick="select(hero[29])">
-      <img src="hero/sup3.png" class="Hero" id="碧姬" alt="碧姬" onclick="select(hero[30])">
-      <img src="hero/sup4.png" class="Hero" id="禪亞塔" alt="禪亞塔" onclick="select(hero[31])">
-      <img src="hero/sup5.png" class="Hero" id="莫伊拉" alt="莫伊拉" onclick="select(hero[32])">
-      <img src="hero/sup6.png" class="Hero" id="路西歐" alt="路西歐" onclick="select(hero[33])">
-      <img src="hero/sup7.png" class="Hero" id="霧子" alt="霧子" onclick="select(hero[34])">
+      <img src="hero/sup0.png" class="Hero" id="安娜" alt="安娜" onclick="select(27)">
+      <img src="hero/sup1.png" class="Hero" id="巴帝斯特" alt="巴帝斯特" onclick="select(28)">
+      <img src="hero/sup2.png" class="Hero" id="慈悲" alt="慈悲" onclick="select(29)">
+      <img src="hero/sup3.png" class="Hero" id="碧姬" alt="碧姬" onclick="select(30)">
+      <img src="hero/sup4.png" class="Hero" id="禪亞塔" alt="禪亞塔" onclick="select(31)">
+      <img src="hero/sup5.png" class="Hero" id="莫伊拉" alt="莫伊拉" onclick="select(32)">
+      <img src="hero/sup6.png" class="Hero" id="路西歐" alt="路西歐" onclick="select(33)">
+      <img src="hero/sup7.png" class="Hero" id="霧子" alt="霧子" onclick="select(34)">
     </div>
   </div>
 </body>
