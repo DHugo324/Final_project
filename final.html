@@ -126,12 +126,11 @@
       console.log(hero);
       console.log(hero_select);
 
-      for (var i = 0; i < hero.length; i++) {
-        var img = document.getElementById("Hero" + String(i));
-        img.setAttribute("alt", hero[i]);
-        img.setAttribute("id", hero[i]);
-        img.addEventListener("click", function () { select(hero[i]); }, false);
-      }
+      // for (var i = 0; i < hero.length; i++) {
+      //   var img = document.getElementById("Hero" + String(i));
+      //   img.setAttribute("alt", hero[i]);
+      //   img.setAttribute("id", hero[i]);
+      // }
     }
 
     function getPosition(element) { //拿到屬標位置
@@ -164,16 +163,26 @@
     }
 
     function select(selected_hero) {
-      if (hero_select[selected_hero] == 1) return;
-      hero_select[selected_hero] = 1;
-      //counter_counter(selected_hero);
-      console.log(selected_hero);
-      console.log(hero_select[selected_hero]);
-      //display(String(selected_hero) + ".png");
-        $("#"+selected_hero).fadeTo("fast",0.3);
-        document.getElementById("enemy").innerHTML += "<img src='" +  document.getElementById(selected_hero).getAttribute("src") + "' class='Hero' id='enemy0'>";
+      if (hero_select[selected_hero] == 1) {//取消選取
+        hero_select[selected_hero] = 0;
+        $("#" + selected_hero).fadeTo("fast", 1);
+      }
+      else {//選取
+        hero_select[selected_hero] = 1;
+        //counter_counter(selected_hero);
+        $("#" + selected_hero).fadeTo("fast", 0.3);
+      }
+      display();
     }
-    
+    function display() {
+      msg = "";
+      for (var i = 0; i < hero.length; i++) {
+        if (hero_select[hero[i]])
+          msg += "<img src='" + document.getElementById(hero[i]).getAttribute("src") + "' class='Hero' id='enemy0'>";
+      }
+      document.getElementById("enemy").innerHTML = msg;
+    }
+
     function counter_counter(selected_hero) {
       if (selected_hero == hero[0]) {
         counter_cnt[hero[12]]++;
@@ -386,9 +395,6 @@
         counter_cnt[hero[6]]++;
       }
     }
-    function display(selected_hero) {
-
-    }
   </script>
 </head>
 
@@ -411,47 +417,47 @@
   </div>
 
   <div id="hero" class="hero" style="display:none">
-      <div style="text-align:center; width: 20%; overflow: scroll;">
-        <img src="hero/tank0.png" class="Hero" id="Hero0" alt="" onclick="select(hero[0])">
-        <img src="hero/tank1.png" class="Hero" id="Hero1" alt="" onclick="select(hero[1])">
-        <img src="hero/tank2.png" class="Hero" id="Hero2" alt="" onclick="select(hero[2])">
-        <img src="hero/tank3.png" class="Hero" id="Hero3" alt="" onclick="select(hero[3])">
-        <img src="hero/tank4.png" class="Hero" id="Hero4" alt="" onclick="select(hero[4])">
-        <img src="hero/tank5.png" class="Hero" id="Hero5" alt="" onclick="select(hero[5])">
-        <img src="hero/tank6.png" class="Hero" id="Hero6" alt="" onclick="select(hero[6])">
-        <img src="hero/tank7.png" class="Hero" id="Hero7" alt="" onclick="select(hero[7])">
-        <img src="hero/tank8.png" class="Hero" id="Hero8" alt="" onclick="select(hero[8])">
-        <img src="hero/tank9.png" class="Hero" id="Hero9" alt="" onclick="select(hero[9])">
-      </div>
-      <div style="text-align:center; width: 35%; overflow: scroll;">
-        <img src="hero/dps0.png" class="Hero" id="Hero10" alt="" onclick="select(hero[10])">
-        <img src="hero/dps1.png" class="Hero" id="Hero11" alt="" onclick="select(hero[11])">
-        <img src="hero/dps2.png" class="Hero" id="Hero12" alt="" onclick="select(hero[12])">
-        <img src="hero/dps3.png" class="Hero" id="Hero13" alt="" onclick="select(hero[13])">
-        <img src="hero/dps4.png" class="Hero" id="Hero14" alt="" onclick="select(hero[14])">
-        <img src="hero/dps5.png" class="Hero" id="Hero15" alt="" onclick="select(hero[15])">
-        <img src="hero/dps6.png" class="Hero" id="Hero16" alt="" onclick="select(hero[16])">
-        <img src="hero/dps7.png" class="Hero" id="Hero17" alt="" onclick="select(hero[17])">
-        <img src="hero/dps8.png" class="Hero" id="Hero18" alt="" onclick="select(hero[18])">
-        <img src="hero/dps9.png" class="Hero" id="Hero19" alt="" onclick="select(hero[19])">
-        <img src="hero/dps10.png" class="Hero" id="Hero20" alt="" onclick="select(hero[20])">
-        <img src="hero/dps11.png" class="Hero" id="Hero21" alt="" onclick="select(hero[21])">
-        <img src="hero/dps12.png" class="Hero" id="Hero22" alt="" onclick="select(hero[22])">
-        <img src="hero/dps13.png" class="Hero" id="Hero23" alt="" onclick="select(hero[23])">
-        <img src="hero/dps14.png" class="Hero" id="Hero24" alt="" onclick="select(hero[24])">
-        <img src="hero/dps15.png" class="Hero" id="Hero25" alt="" onclick="select(hero[25])">
-        <img src="hero/dps16.png" class="Hero" id="Hero26" alt="" onclick="select(hero[26])">
-      </div>
-      <div style="text-align:center; width: 20%; overflow: scroll;">
-        <img src="hero/sup0.png" class="Hero" id="Hero27" alt="" onclick="select(hero[27])">
-        <img src="hero/sup1.png" class="Hero" id="Hero28" alt="" onclick="select(hero[28])">
-        <img src="hero/sup2.png" class="Hero" id="Hero29" alt="" onclick="select(hero[29])">
-        <img src="hero/sup3.png" class="Hero" id="Hero30" alt="" onclick="select(hero[30])">
-        <img src="hero/sup4.png" class="Hero" id="Hero31" alt="" onclick="select(hero[31])">
-        <img src="hero/sup5.png" class="Hero" id="Hero32" alt="" onclick="select(hero[32])">
-        <img src="hero/sup6.png" class="Hero" id="Hero33" alt="" onclick="select(hero[33])">
-        <img src="hero/sup7.png" class="Hero" id="Hero34" alt="" onclick="select(hero[34])">
-      </div>
+    <div style="text-align:center; width: 20%; overflow: scroll;">
+      <img src="hero/tank0.png" class="Hero" id="垃圾鎮女王" alt="垃圾鎮女王" onclick="select(hero[0])">
+      <img src="hero/tank1.png" class="Hero" id="席格馬" alt="席格馬" onclick="select(hero[1])">
+      <img src="hero/tank2.png" class="Hero" id="攔路豬" alt="攔路豬" onclick="select(hero[2])">
+      <img src="hero/tank3.png" class="Hero" id="札莉雅" alt="札莉雅" onclick="select(hero[3])">
+      <img src="hero/tank4.png" class="Hero" id="歐瑞莎" alt="歐瑞莎" onclick="select(hero[4])">
+      <img src="hero/tank5.png" class="Hero" id="毀滅拳王" alt="毀滅拳王" onclick="select(hero[5])">
+      <img src="hero/tank6.png" class="Hero" id="溫斯頓" alt="溫斯頓" onclick="select(hero[6])">
+      <img src="hero/tank7.png" class="Hero" id="火爆鋼球" alt="火爆鋼球" onclick="select(hero[7])">
+      <img src="hero/tank8.png" class="Hero" id="萊茵哈特" alt="萊茵哈特" onclick="select(hero[8])">
+      <img src="hero/tank9.png" class="Hero" id="D.VA" alt="D.VA" onclick="select(hero[9])">
+    </div>
+    <div style="text-align:center; width: 35%; overflow: scroll;">
+      <img src="hero/dps0.png" class="Hero" id="半藏" alt="半藏" onclick="select(hero[10])">
+      <img src="hero/dps1.png" class="Hero" id="卡西迪" alt="卡西迪" onclick="select(hero[11])">
+      <img src="hero/dps2.png" class="Hero" id="壁壘機兵" alt="壁壘機兵" onclick="select(hero[12])">
+      <img src="hero/dps3.png" class="Hero" id="士兵76" alt="士兵76" onclick="select(hero[13])">
+      <img src="hero/dps4.png" class="Hero" id="奪命女" alt="奪命女" onclick="select(hero[14])">
+      <img src="hero/dps5.png" class="Hero" id="小美" alt="小美" onclick="select(hero[15])">
+      <img src="hero/dps6.png" class="Hero" id="托比昂" alt="托比昂" onclick="select(hero[16])">
+      <img src="hero/dps7.png" class="Hero" id="死神" alt="死神" onclick="select(hero[17])">
+      <img src="hero/dps8.png" class="Hero" id="法拉" alt="法拉" onclick="select(hero[18])">
+      <img src="hero/dps9.png" class="Hero" id="源氏" alt="源氏" onclick="select(hero[19])">
+      <img src="hero/dps10.png" class="Hero" id="炸彈鼠" alt="炸彈鼠" onclick="select(hero[20])">
+      <img src="hero/dps11.png" class="Hero" id="索潔恩" alt="索潔恩" onclick="select(hero[21])">
+      <img src="hero/dps12.png" class="Hero" id="艾西" alt="艾西" onclick="select(hero[22])">
+      <img src="hero/dps13.png" class="Hero" id="辛梅塔" alt="辛梅塔" onclick="select(hero[23])">
+      <img src="hero/dps14.png" class="Hero" id="迴音" alt="迴音" onclick="select(hero[24])">
+      <img src="hero/dps15.png" class="Hero" id="閃光" alt="閃光" onclick="select(hero[25])">
+      <img src="hero/dps16.png" class="Hero" id="駭影" alt="駭影" onclick="select(hero[26])">
+    </div>
+    <div style="text-align:center; width: 20%; overflow: scroll;">
+      <img src="hero/sup0.png" class="Hero" id="安娜" alt="安娜" onclick="select(hero[27])">
+      <img src="hero/sup1.png" class="Hero" id="巴帝斯特" alt="巴帝斯特" onclick="select(hero[28])">
+      <img src="hero/sup2.png" class="Hero" id="慈悲" alt="慈悲" onclick="select(hero[29])">
+      <img src="hero/sup3.png" class="Hero" id="碧姬" alt="碧姬" onclick="select(hero[30])">
+      <img src="hero/sup4.png" class="Hero" id="禪亞塔" alt="禪亞塔" onclick="select(hero[31])">
+      <img src="hero/sup5.png" class="Hero" id="莫伊拉" alt="莫伊拉" onclick="select(hero[32])">
+      <img src="hero/sup6.png" class="Hero" id="路西歐" alt="路西歐" onclick="select(hero[33])">
+      <img src="hero/sup7.png" class="Hero" id="霧子" alt="霧子" onclick="select(hero[34])">
+    </div>
   </div>
 </body>
 
