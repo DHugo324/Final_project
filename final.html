@@ -30,6 +30,15 @@
       justify-content: center;
     }
 
+    .team {
+      position: fixed;
+      top: 30%;
+      width: 100%;
+      height: 20%;
+      display: flex;
+      justify-content: center;
+    }
+
     .info {
       position: fixed;
       top: 40%;
@@ -84,8 +93,8 @@
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script>
-    const hero_list = "垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 D.VA 半藏 卡西迪 壁壘機兵 士兵76 奪命女 小美 托比昂 死神 法拉 源氏 炸彈鼠 索潔恩 艾西 辛梅塔 迴音 閃光 駭影 安娜 巴帝斯特 慈悲 碧姬 禪亞塔 莫伊拉 路西歐 霧子";
-    const tank_list = "垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 D.VA"
+    const hero_list = "垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 DVA 半藏 卡西迪 壁壘機兵 士兵76 奪命女 小美 托比昂 死神 法拉 源氏 炸彈鼠 索潔恩 艾西 辛梅塔 迴音 閃光 駭影 安娜 巴帝斯特 慈悲 碧姬 禪亞塔 莫伊拉 路西歐 霧子";
+    const tank_list = "垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 DVA"
     const dps_list = "半藏 卡西迪 壁壘機兵 士兵76 奪命女 小美 托比昂 死神 法拉 源氏 炸彈鼠 索潔恩 艾西 辛梅塔 迴音 閃光 駭影";
     const sup_list = "安娜 巴帝斯特 慈悲 碧姬 禪亞塔 莫伊拉 路西歐 霧子"
     var hero = hero_list.split(' ');
@@ -127,6 +136,7 @@
       [hero[14], hero[26], hero[7], hero[6]],
       [hero[18], hero[16], hero[32], hero[12]],
       [hero[14], hero[26], hero[21], hero[25]],];
+
     function start() {
       document.getElementById("bow").volume = 0.3;
 
@@ -198,36 +208,97 @@
       percent.innerHTML = ((100 - (posroad / winroad) * 100) * 1.03).toFixed(0);
     }
 
+    var tank_cnt = -1, dps_cnt = -1, sup_cnt = -1, total=0;
     function select(selected_hero_idx) {
-      if (hero_select[hero[selected_hero_idx]] == 1) {//取消選取
-        hero_select[hero[selected_hero_idx]] = 0;
-        counter_counter(selected_hero_idx, 0);
-        $("#" + hero[selected_hero_idx]).fadeTo("fast", 1);
-      }
-      else {//選取
+      if (hero_select[hero[selected_hero_idx]] != 1) {//選取
         hero_select[hero[selected_hero_idx]] = 1;
         counter_counter(selected_hero_idx, 1);
         $("#" + hero[selected_hero_idx]).fadeTo("fast", 0.3);
-      }
-      display();
-    }
-    function display() {
-      var tank_cnt = 0, dps_cnt = 0, sup_cnt = 0;
-      msg = "";
-      for (var i = 0; i < hero.length; i++) {
-        if (hero_select[hero[i]]) {
-          msg += "<img src='" + document.getElementById(hero[i]).getAttribute("src") + "' class='Hero' id='enemy0'>";
-          if (i <= 9) tank_cnt++;
-          else if (i <= 26) dps_cnt++;
-          else if (i <= 34) sup_cnt++;
+        if (selected_hero_idx <= 9) {
+          tank_cnt++;
+          if(tank_cnt>=1){
+            hero_select[document.getElementById("enemy_tank0").getAttribute("alt")] = 0;
+            counter_counter(hero.indexOf(document.getElementById("enemy_tank0").getAttribute("alt")), 0);
+            $("#" + document.getElementById("enemy_tank0").getAttribute("alt")).fadeTo("fast", 1);
+          }
+          else{
+            total++;
+          }
+          document.getElementById("enemy_tank0").setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+          document.getElementById("enemy_tank0").setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+        }
+        else if (selected_hero_idx <= 26) {
+          dps_cnt++;
+          if(dps_cnt>=2){
+            hero_select[document.getElementById("enemy_dps0").getAttribute("alt")] = 0;
+            counter_counter(hero.indexOf(document.getElementById("enemy_dps0").getAttribute("alt")), 0);
+            $("#" + document.getElementById("enemy_dps0").getAttribute("alt")).fadeTo("fast", 1);
+            document.getElementById("enemy_dps0").setAttribute("src",document.getElementById("enemy_dps1").getAttribute("src"));
+            document.getElementById("enemy_dps0").setAttribute("alt",document.getElementById("enemy_dps1").getAttribute("alt"));
+            document.getElementById("enemy_dps1").setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_dps1").setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+          }
+          else{
+            total++;
+            document.getElementById("enemy_dps"+dps_cnt).setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_dps"+dps_cnt).setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+          }
+        }
+        else if (selected_hero_idx <= 34){
+          sup_cnt++;
+          if(sup_cnt>=2){
+            hero_select[document.getElementById("enemy_sup0").getAttribute("alt")] = 0;
+            counter_counter(hero.indexOf(document.getElementById("enemy_sup0").getAttribute("alt")), 0);
+            $("#" + document.getElementById("enemy_sup0").getAttribute("alt")).fadeTo("fast", 1);
+            document.getElementById("enemy_sup0").setAttribute("src",document.getElementById("enemy_sup1").getAttribute("src"));
+            document.getElementById("enemy_sup0").setAttribute("alt",document.getElementById("enemy_sup1").getAttribute("alt"));
+            document.getElementById("enemy_sup1").setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_sup1").setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+          }
+          else{
+            total++;
+            document.getElementById("enemy_sup"+sup_cnt).setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_sup"+sup_cnt).setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+          }
+        }
+        if(total==5){
+          var max_site = [0, 10, 11, 27, 28]
+          for(var i = 0; i <= 34; i++){
+            if(i <= 9){
+              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[0]]])
+                max_site[0] = i;
+              document.getElementById("team_tank0").setAttribute("src",document.getElementById(hero[max_site[0]]).getAttribute("src"));
+              document.getElementById("team_tank0").setAttribute("alt",document.getElementById(hero[max_site[0]]).getAttribute("alt"));
+            }
+            else if (i <= 26) {
+              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[1]]]){
+                max_site[2] = max_site[1];
+                max_site[1] = i;
+              }
+              else if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[2]]] && i != max_site[1] ){
+                max_site[2] = i;
+              }
+              document.getElementById("team_dps0").setAttribute("src",document.getElementById(hero[max_site[1]]).getAttribute("src"));
+              document.getElementById("team_dps0").setAttribute("alt",document.getElementById(hero[max_site[1]]).getAttribute("alt"));
+              document.getElementById("team_dps1").setAttribute("src",document.getElementById(hero[max_site[2]]).getAttribute("src"));
+              document.getElementById("team_dps1").setAttribute("alt",document.getElementById(hero[max_site[2]]).getAttribute("alt"));
+            }
+            else if (i <= 34){
+              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[3]]]){
+                max_site[4] = max_site[3];
+                max_site[3] = i;
+              }
+              else if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[4]]] && i != max_site[3] ){
+                max_site[4] = i;
+              }
+              document.getElementById("team_sup0").setAttribute("src",document.getElementById(hero[max_site[3]]).getAttribute("src"));
+              document.getElementById("team_sup0").setAttribute("alt",document.getElementById(hero[max_site[3]]).getAttribute("alt"));
+              document.getElementById("team_sup1").setAttribute("src",document.getElementById(hero[max_site[4]]).getAttribute("src"));
+              document.getElementById("team_sup1").setAttribute("alt",document.getElementById(hero[max_site[4]]).getAttribute("alt"));
+            }
+          }
         }
       }
-      document.getElementById("enemy").innerHTML = msg;
-
-      // Waring or alert 陣容不合理
-      // if(tank_cnt>?)
-      // if(dps_cnt>?)
-      // if(sup_cnt>?)
     }
 
     function counter_counter(selected_hero_idx, f) {
@@ -252,7 +323,7 @@
     <img id="title" class="title" src="title.png"> 陣容模擬器
   </div>
   <div id="info" class="info">
-    <a href=""><img src="ppt.png" width="40"></a><br>
+    <a href="Overwatch2 最佳陣容模擬器-01057001+01057107.pptx"><img src="ppt.png" width="40"></a><br>
     <img id="about" src="about.png" width="40">
   </div>
   <audio id="bow" autoplay loop src="BOW.mp3"></audio>
@@ -260,8 +331,33 @@
   <div id="start">
     <img id="ult" class="start" src="start.png" width="130">
   </div>
-  <div id="enemy" class="enemy">
 
+  <div id="enemy" class="enemy">
+    <div style="text-align:center; width: 20%;">
+      <img src="" class='Hero' alt="" id='enemy_tank0'>
+    </div>
+    <div style="text-align:center; width: 20%;">
+      <img src="" class='Hero' alt="" id='enemy_dps0'>
+      <img src="" class='Hero' alt="" id='enemy_dps1'>
+    </div>
+    <div style="text-align:center; width: 20%;">
+      <img src="" class='Hero' alt="" id='enemy_sup0'>
+      <img src="" class='Hero' alt="" id='enemy_sup1'>
+    </div>
+  </div>
+
+  <div id="team" class="team">
+    <div style="text-align:center; width: 20%; overflow: scroll;">
+      <img src="" class='Hero' alt="" id='team_tank0'>
+    </div>
+    <div style="text-align:center; width: 20%; overflow: scroll;">
+      <img src="" class='Hero' alt="" id='team_dps0'>
+      <img src="" class='Hero' alt="" id='team_dps1'>
+    </div>
+    <div style="text-align:center; width: 20%; overflow: scroll;">
+      <img src="" class='Hero' alt="" id='team_sup0'>
+      <img src="" class='Hero' alt="" id='team_sup1'>
+    </div>
   </div>
 
   <div id="hero" class="hero" style="display:none">
@@ -275,7 +371,7 @@
       <img src="hero/tank6.png" class="Hero" id="溫斯頓" alt="溫斯頓" onclick="select(6)">
       <img src="hero/tank7.png" class="Hero" id="火爆鋼球" alt="火爆鋼球" onclick="select(7)">
       <img src="hero/tank8.png" class="Hero" id="萊茵哈特" alt="萊茵哈特" onclick="select(8)">
-      <img src="hero/tank9.png" class="Hero" id="D.VA" alt="D.VA" onclick="select(9)">
+      <img src="hero/tank9.png" class="Hero" id="DVA" alt="DVA" onclick="select(9)">
     </div>
     <div style="text-align:center; width: 35%; overflow: scroll;">
       <img src="hero/dps0.png" class="Hero" id="半藏" alt="半藏" onclick="select(10)">
