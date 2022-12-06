@@ -9,11 +9,6 @@
       display: none
     }
 
-    @font-face {
-      font-family: 'oxxo';
-      src: url('setofont.ttf');
-    }
-
     .title_logo {
       text-align: center;
       width: auto;
@@ -28,6 +23,7 @@
       width: 100%;
       display: flex;
       justify-content: center;
+      color: red;
     }
 
     .team {
@@ -37,12 +33,14 @@
       height: 20%;
       display: flex;
       justify-content: center;
+      color: green;
     }
 
     .info {
       position: fixed;
       top: 40%;
       right: 0%;
+      z-index: 1;
     }
 
     .hero {
@@ -61,6 +59,7 @@
     body {
       background-color: black;
       justify-content: center;
+      z-index: 0;
     }
 
     div {
@@ -86,9 +85,16 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-
-    audio {
-      vertical-align: bottom;
+    .backvideo{
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: -1;
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -138,6 +144,7 @@
       [hero[14], hero[26], hero[21], hero[25]],];
 
     function start() {
+  
       document.getElementById("bow").volume = 0.3;
 
       document.onmousemove = function (event) { //當滑鼠移動
@@ -153,16 +160,26 @@
           $(this).find("img").attr("src", "start.png");
         });
 
-      /*$("#about").click(function(){ //點擊開始後
-          document.getElementById("title_logo").innerHTML = "<p>made by<br>王家騏、戴毓辰<";
-      });*/
+      $("#about").click(function(){
+        $("#title_logo").hide();
+        $("#percent").hide();
+        $("#start").hide();
+        document.getElementById("intro").play();
+        document.getElementById("intro").onended = function() {
+          $("#title_logo").show();
+          $("#percent").show();
+          $("#start").show();
+        };
+      });
 
       $("#ult").click(function () { //點擊開始後
+        document.getElementById("bow").play();
         $("#start").unbind();
         $("#percent").hide();
         $("#title_logo").fadeOut(1000);
         $("#start").fadeOut(1000);
         $("#hero").fadeIn(2000);
+        $("#enemy").fadeIn(3000);
       });
 
       for (var i = 0; i < hero.length; i++) {
@@ -261,12 +278,15 @@
             document.getElementById("enemy_sup"+sup_cnt).setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
           }
         }
-        if(total==5){
-          var max_site = [0, 10, 11, 27, 28]
+
+        if(total==5){ //顯示我方陣容
+          $("#team").fadeIn(1000);
+          var max_site = [0, 10, 11, 27, 28];
           for(var i = 0; i <= 34; i++){
             if(i <= 9){
-              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[0]]])
+              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[0]]]){
                 max_site[0] = i;
+              }
               document.getElementById("team_tank0").setAttribute("src",document.getElementById(hero[max_site[0]]).getAttribute("src"));
               document.getElementById("team_tank0").setAttribute("alt",document.getElementById(hero[max_site[0]]).getAttribute("alt"));
             }
@@ -318,21 +338,25 @@
 </head>
 
 <body onload=start()>
+  <audio id="bow" autoplay loop>
+    <source src="BOW.mp3" type="audio/mp3">
+  </audio>
+  <video id="intro" muted src="intro.mp4" class="backvideo"></video>
   <div id="title_logo" class="title_logo">
-    <img id="logo" class="logo" src="logo.png" width="500"><br>
-    <img id="title" class="title" src="title.png"> 陣容模擬器
+    <img id="logo" class="logo" src="logo.png" width="250"><br>
+    <img id="title" class="title" src="title.png"> <strong>陣容模擬器</strong>
   </div>
   <div id="info" class="info">
     <a href="Overwatch2 最佳陣容模擬器-01057001+01057107.pptx"><img src="ppt.png" width="40"></a><br>
     <img id="about" src="about.png" width="40">
   </div>
-  <audio id="bow" autoplay loop src="BOW.mp3"></audio>
   <div class="container" id="percent"></div>
   <div id="start">
     <img id="ult" class="start" src="start.png" width="130">
   </div>
 
-  <div id="enemy" class="enemy">
+  <div id="enemy" class="enemy" style="display:none">
+    <strong>敵方隊伍</strong>
     <div style="text-align:center; width: 20%;">
       <img src="" class='Hero' alt="" id='enemy_tank0'>
     </div>
@@ -346,7 +370,8 @@
     </div>
   </div>
 
-  <div id="team" class="team">
+  <div id="team" class="team" style="display:none">
+    <strong>我方隊伍</strong>
     <div style="text-align:center; width: 20%; overflow: scroll;">
       <img src="" class='Hero' alt="" id='team_tank0'>
     </div>
