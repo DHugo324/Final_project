@@ -325,6 +325,7 @@
     }
 
     function change(num,change_hero_idx,another_hero_idx) {
+      document.getElementById("choose").cloneNode().play();
       var changeto = change_hero_idx+1;
       if(change_hero_idx <= 9){
         while(changeto!=change_hero_idx && counter_cnt[hero[changeto]]<counter_cnt[hero[change_hero_idx]]){
