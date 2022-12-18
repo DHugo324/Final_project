@@ -191,8 +191,17 @@
         };
       });
 
+      $("#music").click(function(){
+        if (document.getElementById("bow").paused){
+          document.getElementById("music").setAttribute("src","pause.png");
+          document.getElementById("bow").play();
+        }else {
+          document.getElementById("music").setAttribute("src","play.png");
+          document.getElementById("bow").pause();
+        }
+      });
+
       $("#ult").click(function () { //點擊開始後
-        document.getElementById("bow").play();
         $("#start").unbind();
         $("#percent").hide();
         $("#title_logo").fadeOut(1000);
@@ -427,7 +436,8 @@
 
   <div id="info" class="info">
     <a href="Overwatch2 最佳陣容模擬器-01057001+01057107.pptx"><img src="ppt.png" width="40"></a><br>
-    <img id="about" src="about.png" width="40">
+    <img id="about" src="about.png" width="40"><br>
+    <img id="music" src="play.png" width="40">
   </div>
 
   <div class="container" id="percent">
