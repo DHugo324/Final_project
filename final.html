@@ -328,6 +328,7 @@
       document.getElementById("choose").cloneNode().play();
       var changeto = change_hero_idx+1;
       if(change_hero_idx <= 9){
+        changeto %= 10;
         while(changeto!=change_hero_idx && counter_cnt[hero[changeto]]<counter_cnt[hero[change_hero_idx]]){
           changeto=(changeto+1)%10;
         }
@@ -336,6 +337,8 @@
         document.getElementById("team_tank0").setAttribute("onclick","change(" + num + "," + changeto + "," + another_hero_idx + ")");
       }
       else if (change_hero_idx <= 26) {
+        changeto %= 27;
+        if(changeto==0) changeto+=10;
         if(changeto==another_hero_idx) changeto++;
         while(changeto!=change_hero_idx && counter_cnt[hero[changeto]]<counter_cnt[hero[change_hero_idx]]){
           changeto=(changeto+1)%27;
@@ -349,6 +352,8 @@
         document.getElementById("team_dps"+((num+1)%2)).setAttribute("onclick","change(" + ((num+1)%2) + "," + another_hero_idx + "," + changeto + ")");
       }
       else if (change_hero_idx <= 34){
+        changeto %= 35;
+        if(changeto==0) changeto+=27;
         if(changeto==another_hero_idx) changeto++;
         while(changeto!=change_hero_idx  && counter_cnt[hero[changeto]]<counter_cnt[hero[change_hero_idx]]){
           changeto=(changeto+1)%35;
