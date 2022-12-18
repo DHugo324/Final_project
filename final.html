@@ -54,7 +54,7 @@
       display: flex;
       height: 35%;
       justify-content: center;
-      color:aliceblue;
+      color: aliceblue;
     }
 
     .Hero {
@@ -89,7 +89,8 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-    .backvideo{
+
+    .backvideo {
       width: 100vw;
       height: 100vh;
       object-fit: cover;
@@ -101,7 +102,7 @@
       z-index: 2;
     }
 
-    .choose_team{
+    .choose_team {
       position: fixed;
       display: flex;
       justify-content: center;
@@ -110,7 +111,7 @@
       color: greenyellow;
     }
 
-    .choose_hero{
+    .choose_hero {
       position: fixed;
       display: flex;
       justify-content: center;
@@ -183,20 +184,20 @@
           $(this).find("img").attr("src", "start.png");
         });
 
-      $("#about").click(function(){
+      $("#about").click(function () {
         $("#intro").show();
         document.getElementById("intro").play();
-        document.getElementById("intro").onended = function() {
+        document.getElementById("intro").onended = function () {
           $("#intro").hide();
         };
       });
 
-      $("#music").click(function(){
-        if (document.getElementById("bow").paused){
-          document.getElementById("music").setAttribute("src","pause.png");
+      $("#music").click(function () {
+        if (document.getElementById("bow").paused) {
+          document.getElementById("music").setAttribute("src", "pause.png");
           document.getElementById("bow").play();
-        }else {
-          document.getElementById("music").setAttribute("src","play.png");
+        } else {
+          document.getElementById("music").setAttribute("src", "play.png");
           document.getElementById("bow").pause();
         }
       });
@@ -218,11 +219,11 @@
       console.log(hero_select);
     }
 
-    function blink(selector){
-      $(selector).fadeIn(2000, function(){
-          $(this).fadeOut('slow', function(){
-              blink(this);
-          });
+    function blink(selector) {
+      $(selector).fadeIn(2000, function () {
+        $(this).fadeOut('slow', function () {
+          blink(this);
+        });
       });
     }
 
@@ -255,7 +256,7 @@
       percent.innerHTML = ((100 - (posroad / winroad) * 100) * 1.03).toFixed(0);
     }
 
-    var tank_cnt = -1, dps_cnt = -1, sup_cnt = -1, total=0;
+    var tank_cnt = -1, dps_cnt = -1, sup_cnt = -1, total = 0;
     function select(selected_hero_idx) {
       $("#enemy").fadeIn(500);
       if (hero_select[hero[selected_hero_idx]] != 1) {//選取
@@ -265,143 +266,155 @@
         $("#" + hero[selected_hero_idx]).fadeTo("fast", 0.3);
         if (selected_hero_idx <= 9) {
           tank_cnt++;
-          if(tank_cnt>=1){
+          if (tank_cnt >= 1) {
             hero_select[document.getElementById("enemy_tank0").getAttribute("alt")] = 0;
             counter_counter(hero.indexOf(document.getElementById("enemy_tank0").getAttribute("alt")), 0);
             $("#" + document.getElementById("enemy_tank0").getAttribute("alt")).fadeTo("fast", 1);
           }
-          else{
+          else {
             total++;
           }
-          document.getElementById("enemy_tank0").setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
-          document.getElementById("enemy_tank0").setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+          document.getElementById("enemy_tank0").setAttribute("src", document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+          document.getElementById("enemy_tank0").setAttribute("alt", document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+          document.getElementById("enemy_tank0").setAttribute("title", document.getElementById(hero[selected_hero_idx]).getAttribute("title"));
         }
         else if (selected_hero_idx <= 26) {
           dps_cnt++;
-          if(dps_cnt>=2){
+          if (dps_cnt >= 2) {
             hero_select[document.getElementById("enemy_dps0").getAttribute("alt")] = 0;
             counter_counter(hero.indexOf(document.getElementById("enemy_dps0").getAttribute("alt")), 0);
             $("#" + document.getElementById("enemy_dps0").getAttribute("alt")).fadeTo("fast", 1);
-            document.getElementById("enemy_dps0").setAttribute("src",document.getElementById("enemy_dps1").getAttribute("src"));
-            document.getElementById("enemy_dps0").setAttribute("alt",document.getElementById("enemy_dps1").getAttribute("alt"));
-            document.getElementById("enemy_dps1").setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
-            document.getElementById("enemy_dps1").setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+            document.getElementById("enemy_dps0").setAttribute("src", document.getElementById("enemy_dps1").getAttribute("src"));
+            document.getElementById("enemy_dps0").setAttribute("alt", document.getElementById("enemy_dps1").getAttribute("alt"));
+            document.getElementById("enemy_dps0").setAttribute("title", document.getElementById("enemy_dps1").getAttribute("title"));
+            document.getElementById("enemy_dps1").setAttribute("src", document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_dps1").setAttribute("alt", document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+            document.getElementById("enemy_dps1").setAttribute("title", document.getElementById(hero[selected_hero_idx]).getAttribute("title"));
           }
-          else{
+          else {
             total++;
-            document.getElementById("enemy_dps"+dps_cnt).setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
-            document.getElementById("enemy_dps"+dps_cnt).setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+            document.getElementById("enemy_dps" + dps_cnt).setAttribute("src", document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_dps" + dps_cnt).setAttribute("alt", document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+            document.getElementById("enemy_dps" + dps_cnt).setAttribute("title", document.getElementById(hero[selected_hero_idx]).getAttribute("title"));
           }
         }
-        else if (selected_hero_idx <= 34){
+        else if (selected_hero_idx <= 34) {
           sup_cnt++;
-          if(sup_cnt>=2){
+          if (sup_cnt >= 2) {
             hero_select[document.getElementById("enemy_sup0").getAttribute("alt")] = 0;
             counter_counter(hero.indexOf(document.getElementById("enemy_sup0").getAttribute("alt")), 0);
             $("#" + document.getElementById("enemy_sup0").getAttribute("alt")).fadeTo("fast", 1);
-            document.getElementById("enemy_sup0").setAttribute("src",document.getElementById("enemy_sup1").getAttribute("src"));
-            document.getElementById("enemy_sup0").setAttribute("alt",document.getElementById("enemy_sup1").getAttribute("alt"));
-            document.getElementById("enemy_sup1").setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
-            document.getElementById("enemy_sup1").setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+            document.getElementById("enemy_sup0").setAttribute("src", document.getElementById("enemy_sup1").getAttribute("src"));
+            document.getElementById("enemy_sup0").setAttribute("alt", document.getElementById("enemy_sup1").getAttribute("alt"));
+            document.getElementById("enemy_sup0").setAttribute("title", document.getElementById("enemy_sup1").getAttribute("title"));
+            document.getElementById("enemy_sup1").setAttribute("src", document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_sup1").setAttribute("alt", document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+            document.getElementById("enemy_sup1").setAttribute("title", document.getElementById(hero[selected_hero_idx]).getAttribute("title"));
           }
-          else{
+          else {
             total++;
-            document.getElementById("enemy_sup"+sup_cnt).setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
-            document.getElementById("enemy_sup"+sup_cnt).setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+            document.getElementById("enemy_sup" + sup_cnt).setAttribute("src", document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_sup" + sup_cnt).setAttribute("alt", document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+            document.getElementById("enemy_sup" + sup_cnt).setAttribute("title", document.getElementById(hero[selected_hero_idx]).getAttribute("title"));
           }
         }
 
-        if(total==5){ //顯示我方陣容
+        if (total == 5) { //顯示我方陣容
           $("#team").fadeIn(1000);
           $("#choose_team").fadeIn(1500);
           var max_site = [0, 10, 11, 27, 28];
-          for(var i = 0; i <= 34; i++){
-            if(i <= 9){
-              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[0]]]){
+          for (var i = 0; i <= 34; i++) {
+            if (i <= 9) {
+              if (counter_cnt[hero[i]] > counter_cnt[hero[max_site[0]]]) {
                 max_site[0] = i;
               }
-              document.getElementById("team_tank0").setAttribute("src",document.getElementById(hero[max_site[0]]).getAttribute("src"));
-              document.getElementById("team_tank0").setAttribute("alt",document.getElementById(hero[max_site[0]]).getAttribute("alt"));
-              document.getElementById("team_tank0").setAttribute("onclick","change(0," + max_site[0] + "," + max_site[0] + ")");
+              document.getElementById("team_tank0").setAttribute("src", document.getElementById(hero[max_site[0]]).getAttribute("src"));
+              document.getElementById("team_tank0").setAttribute("alt", document.getElementById(hero[max_site[0]]).getAttribute("alt"));
+              document.getElementById("team_tank0").setAttribute("title", document.getElementById(hero[max_site[0]]).getAttribute("title"));
+              document.getElementById("team_tank0").setAttribute("onclick", "change(0," + max_site[0] + "," + max_site[0] + ")");
             }
             else if (i <= 26) {
-              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[1]]]){
+              if (counter_cnt[hero[i]] > counter_cnt[hero[max_site[1]]]) {
                 max_site[2] = max_site[1];
                 max_site[1] = i;
               }
-              else if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[2]]] && i != max_site[1] ){
+              else if (counter_cnt[hero[i]] > counter_cnt[hero[max_site[2]]] && i != max_site[1]) {
                 max_site[2] = i;
               }
-              document.getElementById("team_dps0").setAttribute("src",document.getElementById(hero[max_site[1]]).getAttribute("src"));
-              document.getElementById("team_dps0").setAttribute("alt",document.getElementById(hero[max_site[1]]).getAttribute("alt"));
-              document.getElementById("team_dps0").setAttribute("onclick","change(0," + max_site[1] + "," + max_site[2] + ")");
-              
-              document.getElementById("team_dps1").setAttribute("src",document.getElementById(hero[max_site[2]]).getAttribute("src"));
-              document.getElementById("team_dps1").setAttribute("alt",document.getElementById(hero[max_site[2]]).getAttribute("alt"));
-              document.getElementById("team_dps1").setAttribute("onclick","change(1," + max_site[2] + "," + max_site[1] + ")");
+              document.getElementById("team_dps0").setAttribute("src", document.getElementById(hero[max_site[1]]).getAttribute("src"));
+              document.getElementById("team_dps0").setAttribute("alt", document.getElementById(hero[max_site[1]]).getAttribute("alt"));
+              document.getElementById("team_dps0").setAttribute("title", document.getElementById(hero[max_site[1]]).getAttribute("title"));
+              document.getElementById("team_dps0").setAttribute("onclick", "change(0," + max_site[1] + "," + max_site[2] + ")");
+
+              document.getElementById("team_dps1").setAttribute("src", document.getElementById(hero[max_site[2]]).getAttribute("src"));
+              document.getElementById("team_dps1").setAttribute("alt", document.getElementById(hero[max_site[2]]).getAttribute("alt"));
+              document.getElementById("team_dps1").setAttribute("title", document.getElementById(hero[max_site[2]]).getAttribute("title"));
+              document.getElementById("team_dps1").setAttribute("onclick", "change(1," + max_site[2] + "," + max_site[1] + ")");
             }
-            else if (i <= 34){
-              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[3]]]){
+            else if (i <= 34) {
+              if (counter_cnt[hero[i]] > counter_cnt[hero[max_site[3]]]) {
                 max_site[4] = max_site[3];
                 max_site[3] = i;
               }
-              else if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[4]]] && i != max_site[3] ){
+              else if (counter_cnt[hero[i]] > counter_cnt[hero[max_site[4]]] && i != max_site[3]) {
                 max_site[4] = i;
               }
-              document.getElementById("team_sup0").setAttribute("src",document.getElementById(hero[max_site[3]]).getAttribute("src"));
-              document.getElementById("team_sup0").setAttribute("alt",document.getElementById(hero[max_site[3]]).getAttribute("alt"));
-              document.getElementById("team_sup0").setAttribute("onclick","change(0," + max_site[3] + "," + max_site[4] + ")");
+              document.getElementById("team_sup0").setAttribute("src", document.getElementById(hero[max_site[3]]).getAttribute("src"));
+              document.getElementById("team_sup0").setAttribute("alt", document.getElementById(hero[max_site[3]]).getAttribute("alt"));
+              document.getElementById("team_sup0").setAttribute("title", document.getElementById(hero[max_site[3]]).getAttribute("title"));
+              document.getElementById("team_sup0").setAttribute("onclick", "change(0," + max_site[3] + "," + max_site[4] + ")");
 
-              document.getElementById("team_sup1").setAttribute("src",document.getElementById(hero[max_site[4]]).getAttribute("src"));
-              document.getElementById("team_sup1").setAttribute("alt",document.getElementById(hero[max_site[4]]).getAttribute("alt"));
-              document.getElementById("team_sup1").setAttribute("onclick","change(1," + max_site[4] + "," + max_site[3] + ")");
+              document.getElementById("team_sup1").setAttribute("src", document.getElementById(hero[max_site[4]]).getAttribute("src"));
+              document.getElementById("team_sup1").setAttribute("alt", document.getElementById(hero[max_site[4]]).getAttribute("alt"));
+              document.getElementById("team_sup1").setAttribute("title", document.getElementById(hero[max_site[4]]).getAttribute("title"));
+              document.getElementById("team_sup1").setAttribute("onclick", "change(1," + max_site[4] + "," + max_site[3] + ")");
             }
           }
         }
       }
     }
 
-    function change(num,change_hero_idx,another_hero_idx) {
+    function change(num, change_hero_idx, another_hero_idx) {
       document.getElementById("choose").cloneNode().play();
-      var changeto = change_hero_idx+1;
-      if(change_hero_idx <= 9){
+      var changeto = change_hero_idx + 1;
+      if (change_hero_idx <= 9) {
         changeto %= 10;
-        while(changeto!=change_hero_idx && counter_cnt[hero[changeto]]<counter_cnt[hero[change_hero_idx]]){
-          changeto=(changeto+1)%10;
+        while (changeto != change_hero_idx && counter_cnt[hero[changeto]] < counter_cnt[hero[change_hero_idx]]) {
+          changeto = (changeto + 1) % 10;
         }
-        document.getElementById("team_tank0").setAttribute("src",document.getElementById(hero[changeto]).getAttribute("src"));
-        document.getElementById("team_tank0").setAttribute("alt",document.getElementById(hero[changeto]).getAttribute("alt"));
-        document.getElementById("team_tank0").setAttribute("onclick","change(" + num + "," + changeto + "," + another_hero_idx + ")");
+        document.getElementById("team_tank0").setAttribute("src", document.getElementById(hero[changeto]).getAttribute("src"));
+        document.getElementById("team_tank0").setAttribute("alt", document.getElementById(hero[changeto]).getAttribute("alt"));
+        document.getElementById("team_tank0").setAttribute("onclick", "change(" + num + "," + changeto + "," + another_hero_idx + ")");
       }
       else if (change_hero_idx <= 26) {
         changeto %= 27;
-        if(changeto==0) changeto+=10;
-        if(changeto==another_hero_idx) changeto++;
-        while(changeto!=change_hero_idx && counter_cnt[hero[changeto]]<counter_cnt[hero[change_hero_idx]]){
-          changeto=(changeto+1)%27;
-          if(changeto==0) changeto+=10;
-          if(changeto==another_hero_idx) changeto++;
+        if (changeto == 0) changeto += 10;
+        if (changeto == another_hero_idx) changeto++;
+        while (changeto != change_hero_idx && counter_cnt[hero[changeto]] < counter_cnt[hero[change_hero_idx]]) {
+          changeto = (changeto + 1) % 27;
+          if (changeto == 0) changeto += 10;
+          if (changeto == another_hero_idx) changeto++;
         }
-        document.getElementById("team_dps"+num).setAttribute("src",document.getElementById(hero[changeto]).getAttribute("src"));
-        document.getElementById("team_dps"+num).setAttribute("alt",document.getElementById(hero[changeto]).getAttribute("alt"));
-        document.getElementById("team_dps"+num).setAttribute("onclick","change(" + num + "," + changeto + "," + another_hero_idx + ")");
-        
-        document.getElementById("team_dps"+((num+1)%2)).setAttribute("onclick","change(" + ((num+1)%2) + "," + another_hero_idx + "," + changeto + ")");
-      }
-      else if (change_hero_idx <= 34){
-        changeto %= 35;
-        if(changeto==0) changeto+=27;
-        if(changeto==another_hero_idx) changeto++;
-        while(changeto!=change_hero_idx  && counter_cnt[hero[changeto]]<counter_cnt[hero[change_hero_idx]]){
-          changeto=(changeto+1)%35;
-          if(changeto==0) changeto+=27;
-          if(changeto==another_hero_idx) changeto++;
-        }      
-        document.getElementById("team_sup"+num).setAttribute("src",document.getElementById(hero[changeto]).getAttribute("src"));
-        document.getElementById("team_sup"+num).setAttribute("alt",document.getElementById(hero[changeto]).getAttribute("alt"));
-        document.getElementById("team_sup"+num).setAttribute("onclick","change(" + num + "," + changeto + "," + another_hero_idx + ")");
+        document.getElementById("team_dps" + num).setAttribute("src", document.getElementById(hero[changeto]).getAttribute("src"));
+        document.getElementById("team_dps" + num).setAttribute("alt", document.getElementById(hero[changeto]).getAttribute("alt"));
+        document.getElementById("team_dps" + num).setAttribute("onclick", "change(" + num + "," + changeto + "," + another_hero_idx + ")");
 
-        document.getElementById("team_sup"+((num+1)%2)).setAttribute("onclick","change(" + ((num+1)%2) + "," + another_hero_idx + "," + changeto + ")");
+        document.getElementById("team_dps" + ((num + 1) % 2)).setAttribute("onclick", "change(" + ((num + 1) % 2) + "," + another_hero_idx + "," + changeto + ")");
+      }
+      else if (change_hero_idx <= 34) {
+        changeto %= 35;
+        if (changeto == 0) changeto += 27;
+        if (changeto == another_hero_idx) changeto++;
+        while (changeto != change_hero_idx && counter_cnt[hero[changeto]] < counter_cnt[hero[change_hero_idx]]) {
+          changeto = (changeto + 1) % 35;
+          if (changeto == 0) changeto += 27;
+          if (changeto == another_hero_idx) changeto++;
+        }
+        document.getElementById("team_sup" + num).setAttribute("src", document.getElementById(hero[changeto]).getAttribute("src"));
+        document.getElementById("team_sup" + num).setAttribute("alt", document.getElementById(hero[changeto]).getAttribute("alt"));
+        document.getElementById("team_sup" + num).setAttribute("onclick", "change(" + num + "," + changeto + "," + another_hero_idx + ")");
+
+        document.getElementById("team_sup" + ((num + 1) % 2)).setAttribute("onclick", "change(" + ((num + 1) % 2) + "," + another_hero_idx + "," + changeto + ")");
       }
     }
 
@@ -481,49 +494,49 @@
 
   <p id="choose_hero" class="choose_hero" style="display:none"><strong>點選敵方英雄</strong></p>
   <div id="hero" class="hero" style="display:none">
-    <img src="hero/tank.png" alt="tank" height="10%">
+    <img src="hero/tank.png" alt="tank" title="tank" height="10%">
     <div style="text-align:center; width: 20%; overflow: scroll;">
-      <img src="hero/tank0.png" class="Hero" id="垃圾鎮女王" alt="垃圾鎮女王" onclick="select(0)">
-      <img src="hero/tank1.png" class="Hero" id="席格馬" alt="席格馬" onclick="select(1)">
-      <img src="hero/tank2.png" class="Hero" id="攔路豬" alt="攔路豬" onclick="select(2)">
-      <img src="hero/tank3.png" class="Hero" id="札莉雅" alt="札莉雅" onclick="select(3)">
-      <img src="hero/tank4.png" class="Hero" id="歐瑞莎" alt="歐瑞莎" onclick="select(4)">
-      <img src="hero/tank5.png" class="Hero" id="毀滅拳王" alt="毀滅拳王" onclick="select(5)">
-      <img src="hero/tank6.png" class="Hero" id="溫斯頓" alt="溫斯頓" onclick="select(6)">
-      <img src="hero/tank7.png" class="Hero" id="火爆鋼球" alt="火爆鋼球" onclick="select(7)">
-      <img src="hero/tank8.png" class="Hero" id="萊茵哈特" alt="萊茵哈特" onclick="select(8)">
-      <img src="hero/tank9.png" class="Hero" id="DVA" alt="DVA" onclick="select(9)">
+      <img src="hero/tank0.png" class="Hero" id="垃圾鎮女王" alt="垃圾鎮女王" title="垃圾鎮女王" onclick="select(0)">
+      <img src="hero/tank1.png" class="Hero" id="席格馬" alt="席格馬" title="席格馬" onclick="select(1)">
+      <img src="hero/tank2.png" class="Hero" id="攔路豬" alt="攔路豬" title="攔路豬" onclick="select(2)">
+      <img src="hero/tank3.png" class="Hero" id="札莉雅" alt="札莉雅" title="札莉雅" onclick="select(3)">
+      <img src="hero/tank4.png" class="Hero" id="歐瑞莎" alt="歐瑞莎" title="歐瑞莎" onclick="select(4)">
+      <img src="hero/tank5.png" class="Hero" id="毀滅拳王" alt="毀滅拳王" title="毀滅拳王" onclick="select(5)">
+      <img src="hero/tank6.png" class="Hero" id="溫斯頓" alt="溫斯頓" title="溫斯頓" onclick="select(6)">
+      <img src="hero/tank7.png" class="Hero" id="火爆鋼球" alt="火爆鋼球" title="火爆鋼球" onclick="select(7)">
+      <img src="hero/tank8.png" class="Hero" id="萊茵哈特" alt="萊茵哈特" title="萊茵哈特" onclick="select(8)">
+      <img src="hero/tank9.png" class="Hero" id="D.VA" alt="D.VA" title="D.VA" onclick="select(9)">
     </div>
-    <img src="hero/dps.png" alt="dps" height="10%">
+    <img src="hero/dps.png" alt="dps" title="dps" height="10%">
     <div style="text-align:center; width: 38%; overflow: scroll;">
-      <img src="hero/dps0.png" class="Hero" id="半藏" alt="半藏" onclick="select(10)">
-      <img src="hero/dps1.png" class="Hero" id="卡西迪" alt="卡西迪" onclick="select(11)">
-      <img src="hero/dps2.png" class="Hero" id="壁壘機兵" alt="壁壘機兵" onclick="select(12)">
-      <img src="hero/dps3.png" class="Hero" id="士兵76" alt="士兵76" onclick="select(13)">
-      <img src="hero/dps4.png" class="Hero" id="奪命女" alt="奪命女" onclick="select(14)">
-      <img src="hero/dps5.png" class="Hero" id="小美" alt="小美" onclick="select(15)">
-      <img src="hero/dps6.png" class="Hero" id="托比昂" alt="托比昂" onclick="select(16)">
-      <img src="hero/dps7.png" class="Hero" id="死神" alt="死神" onclick="select(17)">
-      <img src="hero/dps8.png" class="Hero" id="法拉" alt="法拉" onclick="select(18)">
-      <img src="hero/dps9.png" class="Hero" id="源氏" alt="源氏" onclick="select(19)">
-      <img src="hero/dps10.png" class="Hero" id="炸彈鼠" alt="炸彈鼠" onclick="select(20)">
-      <img src="hero/dps11.png" class="Hero" id="索潔恩" alt="索潔恩" onclick="select(21)">
-      <img src="hero/dps12.png" class="Hero" id="艾西" alt="艾西" onclick="select(22)">
-      <img src="hero/dps13.png" class="Hero" id="辛梅塔" alt="辛梅塔" onclick="select(23)">
-      <img src="hero/dps14.png" class="Hero" id="迴音" alt="迴音" onclick="select(24)">
-      <img src="hero/dps15.png" class="Hero" id="閃光" alt="閃光" onclick="select(25)">
-      <img src="hero/dps16.png" class="Hero" id="駭影" alt="駭影" onclick="select(26)">
+      <img src="hero/dps0.png" class="Hero" id="半藏" alt="半藏" title="半藏" onclick="select(10)">
+      <img src="hero/dps1.png" class="Hero" id="卡西迪" alt="卡西迪" title="卡西迪" onclick="select(11)">
+      <img src="hero/dps2.png" class="Hero" id="壁壘機兵" alt="壁壘機兵" title="壁壘機兵" onclick="select(12)">
+      <img src="hero/dps3.png" class="Hero" id="士兵76" alt="士兵76" title="士兵76" onclick="select(13)">
+      <img src="hero/dps4.png" class="Hero" id="奪命女" alt="奪命女" title="奪命女" onclick="select(14)">
+      <img src="hero/dps5.png" class="Hero" id="小美" alt="小美" title="小美" onclick="select(15)">
+      <img src="hero/dps6.png" class="Hero" id="托比昂" alt="托比昂" title="托比昂" onclick="select(16)">
+      <img src="hero/dps7.png" class="Hero" id="死神" alt="死神" title="死神" onclick="select(17)">
+      <img src="hero/dps8.png" class="Hero" id="法拉" alt="法拉" title="法拉" onclick="select(18)">
+      <img src="hero/dps9.png" class="Hero" id="源氏" alt="源氏" title="源氏" onclick="select(19)">
+      <img src="hero/dps10.png" class="Hero" id="炸彈鼠" alt="炸彈鼠" title="炸彈鼠" onclick="select(20)">
+      <img src="hero/dps11.png" class="Hero" id="索潔恩" alt="索潔恩" title="索潔恩" onclick="select(21)">
+      <img src="hero/dps12.png" class="Hero" id="艾西" alt="艾西" title="艾西" onclick="select(22)">
+      <img src="hero/dps13.png" class="Hero" id="辛梅塔" alt="辛梅塔" title="辛梅塔" onclick="select(23)">
+      <img src="hero/dps14.png" class="Hero" id="迴音" alt="迴音" title="迴音" onclick="select(24)">
+      <img src="hero/dps15.png" class="Hero" id="閃光" alt="閃光" title="閃光" onclick="select(25)">
+      <img src="hero/dps16.png" class="Hero" id="駭影" alt="駭影" title="駭影" onclick="select(26)">
     </div>
-    <img src="hero/sup.png" alt="sup" height="10%">
+    <img src="hero/sup.png" alt="sup" title="sup" height="10%">
     <div style="text-align:center; width: 20%; overflow: scroll;">
-      <img src="hero/sup0.png" class="Hero" id="安娜" alt="安娜" onclick="select(27)">
-      <img src="hero/sup1.png" class="Hero" id="巴帝斯特" alt="巴帝斯特" onclick="select(28)">
-      <img src="hero/sup2.png" class="Hero" id="慈悲" alt="慈悲" onclick="select(29)">
-      <img src="hero/sup3.png" class="Hero" id="碧姬" alt="碧姬" onclick="select(30)">
-      <img src="hero/sup4.png" class="Hero" id="禪亞塔" alt="禪亞塔" onclick="select(31)">
-      <img src="hero/sup5.png" class="Hero" id="莫伊拉" alt="莫伊拉" onclick="select(32)">
-      <img src="hero/sup6.png" class="Hero" id="路西歐" alt="路西歐" onclick="select(33)">
-      <img src="hero/sup7.png" class="Hero" id="霧子" alt="霧子" onclick="select(34)">
+      <img src="hero/sup0.png" class="Hero" id="安娜" alt="安娜" title="安娜" onclick="select(27)">
+      <img src="hero/sup1.png" class="Hero" id="巴帝斯特" alt="巴帝斯特" title="巴帝斯特" onclick="select(28)">
+      <img src="hero/sup2.png" class="Hero" id="慈悲" alt="慈悲" title="慈悲" onclick="select(29)">
+      <img src="hero/sup3.png" class="Hero" id="碧姬" alt="碧姬" title="碧姬" onclick="select(30)">
+      <img src="hero/sup4.png" class="Hero" id="禪亞塔" alt="禪亞塔" title="禪亞塔" onclick="select(31)">
+      <img src="hero/sup5.png" class="Hero" id="莫伊拉" alt="莫伊拉" title="莫伊拉" onclick="select(32)">
+      <img src="hero/sup6.png" class="Hero" id="路西歐" alt="路西歐" title="路西歐" onclick="select(33)">
+      <img src="hero/sup7.png" class="Hero" id="霧子" alt="霧子" title="霧子" onclick="select(34)">
     </div>
   </div>
 </body>
