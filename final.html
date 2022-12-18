@@ -36,7 +36,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: green;
+      color: greenyellow;
       font-size: x-large;
     }
 
@@ -99,6 +99,24 @@
       top: 0;
       bottom: 0;
       z-index: 2;
+    }
+
+    .choose_team{
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      top: 23.5%;
+      color: greenyellow;
+    }
+
+    .choose_hero{
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      bottom: 35%;
+      color: aquamarine;
     }
   </style>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -180,7 +198,7 @@
         $("#title_logo").fadeOut(1000);
         $("#start").fadeOut(1000);
         $("#hero").fadeIn(2000);
-        $("#enemy").fadeIn(3000);
+        blink('#choose_hero');
       });
 
       for (var i = 0; i < hero.length; i++) {
@@ -189,6 +207,14 @@
       }
       console.log(hero);
       console.log(hero_select);
+    }
+
+    function blink(selector){
+      $(selector).fadeIn(2000, function(){
+          $(this).fadeOut('slow', function(){
+              blink(this);
+          });
+      });
     }
 
     function getPosition(element) { //拿到屬標位置
@@ -222,6 +248,7 @@
 
     var tank_cnt = -1, dps_cnt = -1, sup_cnt = -1, total=0;
     function select(selected_hero_idx) {
+      $("#enemy").fadeIn(500);
       if (hero_select[hero[selected_hero_idx]] != 1) {//選取
         document.getElementById("choose").cloneNode().play();
         hero_select[hero[selected_hero_idx]] = 1;
@@ -277,6 +304,7 @@
 
         if(total==5){ //顯示我方陣容
           $("#team").fadeIn(1000);
+          $("#choose_team").fadeIn(1500);
           var max_site = [0, 10, 11, 27, 28];
           for(var i = 0; i <= 34; i++){
             if(i <= 9){
@@ -385,7 +413,6 @@
 </head>
 
 <body onload=start()>
-
   <audio id="bow" autoplay loop>
     <source src="BOW.mp3" type="audio/mp3">
   </audio>
@@ -426,6 +453,7 @@
     </div>
   </div>
 
+  <p id="choose_team" class="choose_team" style="display:none"><strong>可點選我方英雄進行更換</strong></p>
   <div id="team" class="team" style="display:none">
     <strong>我方隊伍</strong>
     <div style="text-align:center; width: 20%; overflow: scroll;">
@@ -441,7 +469,7 @@
     </div>
   </div>
 
-  
+  <p id="choose_hero" class="choose_hero" style="display:none"><strong>點選敵方英雄</strong></p>
   <div id="hero" class="hero" style="display:none">
     <img src="hero/tank.png" alt="tank" height="10%">
     <div style="text-align:center; width: 20%; overflow: scroll;">
