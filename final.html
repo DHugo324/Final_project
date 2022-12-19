@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>OW2陣容模擬器</title>
+  <style type="text/css">
+    ::-webkit-scrollbar {
+      display: none
+    }
+
+    .title_logo {
+      text-align: center;
+      width: auto;
+      font-family: oxxo, serif;
+      color: aliceblue;
+      font-size: 230%;
+    }
+
+    .enemy {
+      position: fixed;
+      top: 0%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      color: red;
+      align-items: center;
+      font-size: x-large;
+    }
+
+    .team {
+      position: fixed;
+      top: 30%;
+      width: 100%;
+      height: 20%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: greenyellow;
+      font-size: x-large;
+    }
+
+    .info {
+      position: fixed;
+      top: 40%;
+      right: 0%;
+      z-index: 1;
+    }
+
+    .hero {
+      position: fixed;
+      bottom: 0%;
+      width: auto;
+      display: flex;
+      height: 35%;
+      justify-content: center;
+      color:aliceblue;
+    }
+
+    .Hero {
+      width: 80px;
+    }
+
+    body {
+      background-color: black;
+      justify-content: center;
+      z-index: 0;
+    }
+
+    div {
+      height: auto;
+      width: auto;
+    }
+
+    .container {
+      position: fixed;
+      font-size: 140%;
+      text-align: left;
+      color: whitesmoke;
+      top: 89.4%;
+      left: 49.5%;
+      transform: translate(-50%, -50%);
+    }
+
+    .start {
+      border-radius: 40%;
+      position: fixed;
+      top: 90%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .backvideo{
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      z-index: 2;
+    }
+
+    .choose_team{
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      top: 23.5%;
+      color: greenyellow;
+    }
+
+    .choose_hero{
+      position: fixed;
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      bottom: 35%;
+      color: aquamarine;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script>
+    const hero_list = "垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 DVA 半藏 卡西迪 壁壘機兵 士兵76 奪命女 小美 托比昂 死神 法拉 源氏 炸彈鼠 索潔恩 艾西 辛梅塔 迴音 閃光 駭影 安娜 巴帝斯特 慈悲 碧姬 禪亞塔 莫伊拉 路西歐 霧子";
+    const tank_list = "垃圾鎮女王 席格馬 攔路豬 札莉雅 歐瑞莎 毀滅拳王 溫斯頓 火爆鋼球 萊茵哈特 DVA"
+    const dps_list = "半藏 卡西迪 壁壘機兵 士兵76 奪命女 小美 托比昂 死神 法拉 源氏 炸彈鼠 索潔恩 艾西 辛梅塔 迴音 閃光 駭影";
+    const sup_list = "安娜 巴帝斯特 慈悲 碧姬 禪亞塔 莫伊拉 路西歐 霧子"
+    var hero = hero_list.split(' ');
+    var hero_select = {};
+    var counter_cnt = {};
+    var counter_list = [
+      [hero[12], hero[31], hero[15], hero[4]],
+      [hero[4], hero[17], hero[19], hero[8]],
+      [hero[27], hero[3], hero[14], hero[17]],
+      [hero[18], hero[26], hero[31], hero[12]],
+      [hero[6], hero[31], hero[20], hero[17]],
+      [hero[17], hero[18], hero[19], hero[24]],
+      [hero[2], hero[27], hero[20], hero[32]],
+      [hero[26], hero[17], hero[12], hero[18]],
+      [hero[17], hero[12], hero[18], hero[20]],
+      [hero[26], hero[3], hero[2], hero[20]],
+      [hero[18], hero[30], hero[3], hero[27]],
+      [hero[14], hero[6], hero[28], hero[25]],
+      [hero[2], hero[20], hero[27], hero[17]],
+      [hero[2], hero[6], hero[19], hero[1]],
+      [hero[6], hero[7], hero[21], hero[8]],
+      [hero[18], hero[26], hero[24], hero[13]],
+      [hero[18], hero[14], hero[27], hero[24]],
+      [hero[14], hero[24], hero[18], hero[31]],
+      [hero[14], hero[10], hero[21], hero[13]],
+      [hero[18], hero[30], hero[3], hero[27]],
+      [hero[18], hero[34], hero[24], hero[14]],
+      [hero[6], hero[3], hero[14], hero[33]],
+      [hero[14], hero[10], hero[25], hero[8]],
+      [hero[9], hero[18], hero[6], hero[0]],
+      [hero[14], hero[21], hero[10], hero[26]],
+      [hero[6], hero[30], hero[18], hero[16]],
+      [hero[10], hero[20], hero[14], hero[25]],
+      [hero[9], hero[14], hero[0], hero[25]],
+      [hero[9], hero[19], hero[10], hero[2]],
+      [hero[14], hero[6], hero[2], hero[21]],
+      [hero[12], hero[18], hero[20], hero[10]],
+      [hero[0], hero[6], hero[14], hero[19]],
+      [hero[14], hero[26], hero[7], hero[6]],
+      [hero[18], hero[16], hero[32], hero[12]],
+      [hero[14], hero[26], hero[21], hero[25]],];
+
+    function start() {
+
+      $("#intro").hide();
+      document.getElementById("bow").volume = 0.3;
+
+      document.onmousemove = function (event) { //當滑鼠移動
+        mousemove(percent, event);
+      }
+
+      $("#start") //滑鼠滑入變成隨機大招圖標
+        .mouseover(function () {
+          var pic = Math.floor(Math.random() * 32 + 1);
+          $(this).find("img").attr("src", "ult/" + String(1 + pic).padStart(2, "0") + ".jpg");
+        })
+        .mouseout(function () {
+          $(this).find("img").attr("src", "start.png");
+        });
+
+      $("#about").click(function(){
+        $("#intro").show();
+        document.getElementById("intro").play();
+        document.getElementById("intro").onended = function() {
+          $("#intro").hide();
+        };
+      });
+
+      $("#music").click(function(){
+        if (document.getElementById("bow").paused){
+          document.getElementById("music").setAttribute("src","pause.png");
+          document.getElementById("bow").play();
+        }else {
+          document.getElementById("music").setAttribute("src","play.png");
+          document.getElementById("bow").pause();
+        }
+      });
+
+      $("#ult").click(function () { //點擊開始後
+        $("#start").unbind();
+        $("#percent").hide();
+        $("#title_logo").fadeOut(1000);
+        $("#start").fadeOut(1000);
+        $("#hero").fadeIn(2000);
+        blink('#choose_hero');
+      });
+
+      for (var i = 0; i < hero.length; i++) {
+        hero_select[hero[i]] = 0;
+        counter_cnt[hero[i]] = parseInt(0);
+      }
+      console.log(hero);
+      console.log(hero_select);
+    }
+
+    function blink(selector){
+      $(selector).fadeIn(2000, function(){
+          $(this).fadeOut('slow', function(){
+              blink(this);
+          });
+      });
+    }
+
+    function getPosition(element) { //拿到屬標位置
+      var x = 0;
+      var y = 0;
+      let rect = element.getBoundingClientRect();
+      x += rect.x;
+      y += rect.y;
+
+      return { x: x, y: y };
+    }
+
+    var mousemove = function (percent, event) {  //滑鼠移動改變數字
+      var posX = 0, posY = 0;
+      var e = event || window.event;
+      if (e.pageX || e.pageY) {
+        posX = e.pageX;
+        posY = e.pageY;
+      } else if (e.clientX || e.clientY) {
+        posX = event.clientX + document.documentElement.scrollLeft + document.body.scrollLeft;
+        posY = event.clientY + document.documentElement.scrollTop + document.body.scrollTop;
+      }
+      posY -= getPosition(percent).y;
+      posX -= getPosition(percent).x;
+      winy = getPosition(percent).y;
+      winx = window.innerWidth - getPosition(percent).x;
+      var posroad = Math.sqrt((posY) * (posY) + (posX) * (posX));
+      var winroad = Math.sqrt(winy * winy + winx * winx);
+      percent.innerHTML = ((100 - (posroad / winroad) * 100) * 1.03).toFixed(0);
+    }
+
+    var tank_cnt = -1, dps_cnt = -1, sup_cnt = -1, total=0;
+    function select(selected_hero_idx) {
+      $("#enemy").fadeIn(500);
+      if (hero_select[hero[selected_hero_idx]] != 1) {//選取
+        document.getElementById("choose").cloneNode().play();
+        hero_select[hero[selected_hero_idx]] = 1;
+        counter_counter(selected_hero_idx, 1);
+        $("#" + hero[selected_hero_idx]).fadeTo("fast", 0.3);
+        if (selected_hero_idx <= 9) {
+          tank_cnt++;
+          if(tank_cnt>=1){
+            hero_select[document.getElementById("enemy_tank0").getAttribute("alt")] = 0;
+            counter_counter(hero.indexOf(document.getElementById("enemy_tank0").getAttribute("alt")), 0);
+            $("#" + document.getElementById("enemy_tank0").getAttribute("alt")).fadeTo("fast", 1);
+          }
+          else{
+            total++;
+          }
+          document.getElementById("enemy_tank0").setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+          document.getElementById("enemy_tank0").setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+        }
+        else if (selected_hero_idx <= 26) {
+          dps_cnt++;
+          if(dps_cnt>=2){
+            hero_select[document.getElementById("enemy_dps0").getAttribute("alt")] = 0;
+            counter_counter(hero.indexOf(document.getElementById("enemy_dps0").getAttribute("alt")), 0);
+            $("#" + document.getElementById("enemy_dps0").getAttribute("alt")).fadeTo("fast", 1);
+            document.getElementById("enemy_dps0").setAttribute("src",document.getElementById("enemy_dps1").getAttribute("src"));
+            document.getElementById("enemy_dps0").setAttribute("alt",document.getElementById("enemy_dps1").getAttribute("alt"));
+            document.getElementById("enemy_dps1").setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_dps1").setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+          }
+          else{
+            total++;
+            document.getElementById("enemy_dps"+dps_cnt).setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_dps"+dps_cnt).setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+          }
+        }
+        else if (selected_hero_idx <= 34){
+          sup_cnt++;
+          if(sup_cnt>=2){
+            hero_select[document.getElementById("enemy_sup0").getAttribute("alt")] = 0;
+            counter_counter(hero.indexOf(document.getElementById("enemy_sup0").getAttribute("alt")), 0);
+            $("#" + document.getElementById("enemy_sup0").getAttribute("alt")).fadeTo("fast", 1);
+            document.getElementById("enemy_sup0").setAttribute("src",document.getElementById("enemy_sup1").getAttribute("src"));
+            document.getElementById("enemy_sup0").setAttribute("alt",document.getElementById("enemy_sup1").getAttribute("alt"));
+            document.getElementById("enemy_sup1").setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_sup1").setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+          }
+          else{
+            total++;
+            document.getElementById("enemy_sup"+sup_cnt).setAttribute("src",document.getElementById(hero[selected_hero_idx]).getAttribute("src"));
+            document.getElementById("enemy_sup"+sup_cnt).setAttribute("alt",document.getElementById(hero[selected_hero_idx]).getAttribute("alt"));
+          }
+        }
+
+        if(total==5){ //顯示我方陣容
+          $("#team").fadeIn(1000);
+          $("#choose_team").fadeIn(1500);
+          var max_site = [0, 10, 11, 27, 28];
+          for(var i = 0; i <= 34; i++){
+            if(i <= 9){
+              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[0]]]){
+                max_site[0] = i;
+              }
+              document.getElementById("team_tank0").setAttribute("src",document.getElementById(hero[max_site[0]]).getAttribute("src"));
+              document.getElementById("team_tank0").setAttribute("alt",document.getElementById(hero[max_site[0]]).getAttribute("alt"));
+              document.getElementById("team_tank0").setAttribute("onclick","change(0," + max_site[0] + "," + max_site[0] + ")");
+            }
+            else if (i <= 26) {
+              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[1]]]){
+                max_site[2] = max_site[1];
+                max_site[1] = i;
+              }
+              else if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[2]]] && i != max_site[1] ){
+                max_site[2] = i;
+              }
+              document.getElementById("team_dps0").setAttribute("src",document.getElementById(hero[max_site[1]]).getAttribute("src"));
+              document.getElementById("team_dps0").setAttribute("alt",document.getElementById(hero[max_site[1]]).getAttribute("alt"));
+              document.getElementById("team_dps0").setAttribute("onclick","change(0," + max_site[1] + "," + max_site[2] + ")");
+              
+              document.getElementById("team_dps1").setAttribute("src",document.getElementById(hero[max_site[2]]).getAttribute("src"));
+              document.getElementById("team_dps1").setAttribute("alt",document.getElementById(hero[max_site[2]]).getAttribute("alt"));
+              document.getElementById("team_dps1").setAttribute("onclick","change(1," + max_site[2] + "," + max_site[1] + ")");
+            }
+            else if (i <= 34){
+              if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[3]]]){
+                max_site[4] = max_site[3];
+                max_site[3] = i;
+              }
+              else if(counter_cnt[hero[i]] > counter_cnt[hero[max_site[4]]] && i != max_site[3] ){
+                max_site[4] = i;
+              }
+              document.getElementById("team_sup0").setAttribute("src",document.getElementById(hero[max_site[3]]).getAttribute("src"));
+              document.getElementById("team_sup0").setAttribute("alt",document.getElementById(hero[max_site[3]]).getAttribute("alt"));
+              document.getElementById("team_sup0").setAttribute("onclick","change(0," + max_site[3] + "," + max_site[4] + ")");
+
+              document.getElementById("team_sup1").setAttribute("src",document.getElementById(hero[max_site[4]]).getAttribute("src"));
+              document.getElementById("team_sup1").setAttribute("alt",document.getElementById(hero[max_site[4]]).getAttribute("alt"));
+              document.getElementById("team_sup1").setAttribute("onclick","change(1," + max_site[4] + "," + max_site[3] + ")");
+            }
+          }
+        }
+      }
+    }
+
+    function change(num,change_hero_idx,another_hero_idx) {
+      document.getElementById("choose").cloneNode().play();
+      var changeto = change_hero_idx+1;
+      if(change_hero_idx <= 9){
+        changeto %= 10;
+        while(changeto!=change_hero_idx && counter_cnt[hero[changeto]]<counter_cnt[hero[change_hero_idx]]){
+          changeto=(changeto+1)%10;
+        }
+        document.getElementById("team_tank0").setAttribute("src",document.getElementById(hero[changeto]).getAttribute("src"));
+        document.getElementById("team_tank0").setAttribute("alt",document.getElementById(hero[changeto]).getAttribute("alt"));
+        document.getElementById("team_tank0").setAttribute("onclick","change(" + num + "," + changeto + "," + another_hero_idx + ")");
+      }
+      else if (change_hero_idx <= 26) {
+        changeto %= 27;
+        if(changeto==0) changeto+=10;
+        if(changeto==another_hero_idx) changeto++;
+        while(changeto!=change_hero_idx && counter_cnt[hero[changeto]]<counter_cnt[hero[change_hero_idx]]){
+          changeto=(changeto+1)%27;
+          if(changeto==0) changeto+=10;
+          if(changeto==another_hero_idx) changeto++;
+        }
+        document.getElementById("team_dps"+num).setAttribute("src",document.getElementById(hero[changeto]).getAttribute("src"));
+        document.getElementById("team_dps"+num).setAttribute("alt",document.getElementById(hero[changeto]).getAttribute("alt"));
+        document.getElementById("team_dps"+num).setAttribute("onclick","change(" + num + "," + changeto + "," + another_hero_idx + ")");
+        
+        document.getElementById("team_dps"+((num+1)%2)).setAttribute("onclick","change(" + ((num+1)%2) + "," + another_hero_idx + "," + changeto + ")");
+      }
+      else if (change_hero_idx <= 34){
+        changeto %= 35;
+        if(changeto==0) changeto+=27;
+        if(changeto==another_hero_idx) changeto++;
+        while(changeto!=change_hero_idx  && counter_cnt[hero[changeto]]<counter_cnt[hero[change_hero_idx]]){
+          changeto=(changeto+1)%35;
+          if(changeto==0) changeto+=27;
+          if(changeto==another_hero_idx) changeto++;
+        }      
+        document.getElementById("team_sup"+num).setAttribute("src",document.getElementById(hero[changeto]).getAttribute("src"));
+        document.getElementById("team_sup"+num).setAttribute("alt",document.getElementById(hero[changeto]).getAttribute("alt"));
+        document.getElementById("team_sup"+num).setAttribute("onclick","change(" + num + "," + changeto + "," + another_hero_idx + ")");
+
+        document.getElementById("team_sup"+((num+1)%2)).setAttribute("onclick","change(" + ((num+1)%2) + "," + another_hero_idx + "," + changeto + ")");
+      }
+    }
+
+    function counter_counter(selected_hero_idx, f) {
+      if (f == 1) {
+        for (var i = 0; i < 4; i++) {
+          counter_cnt[counter_list[selected_hero_idx][i]]++;
+        }
+      }
+      else {
+        for (var i = 0; i < 4; i++) {
+          counter_cnt[counter_list[selected_hero_idx][i]]--;
+        }
+      }
+      console.log(counter_cnt);
+    }
+  </script>
+</head>
+
+<body onload=start()>
+  <audio id="bow" autoplay loop>
+    <source src="BOW.mp3" type="audio/mp3">
+  </audio>
+  <audio id="choose" src="choose.mp3"></audio>
+
+  <video id="intro" muted src="intro.mp4" class="backvideo"></video>
+
+  <div id="title_logo" class="title_logo">
+    <img id="logo" class="logo" src="logo.png" width="250"><br>
+    <img id="title" class="title" src="title.png"> <strong>陣容模擬器</strong>
+  </div>
+
+  <div id="info" class="info">
+    <a href="Overwatch2 最佳陣容模擬器-01057001+01057107.pptx"><img src="ppt.png" width="40"></a><br>
+    <img id="about" src="about.png" width="40"><br>
+    <img id="music" src="play.png" width="40">
+  </div>
+
+  <div class="container" id="percent">
+
+  </div>
+
+  <div id="start">
+    <img id="ult" class="start" src="start.png" width="130">
+  </div>
+
+  <div id="enemy" class="enemy" style="display:none">
+    <strong>敵方隊伍</strong>
+    <div style="text-align:center; width: 20%;">
+      <img src="" class='Hero' alt="" id='enemy_tank0' onclick="">
+    </div>
+    <div style="text-align:center; width: 20%;">
+      <img src="" class='Hero' alt="" id='enemy_dps0' onclick="">
+      <img src="" class='Hero' alt="" id='enemy_dps1' onclick="">
+    </div>
+    <div style="text-align:center; width: 20%;">
+      <img src="" class='Hero' alt="" id='enemy_sup0' onclick="">
+      <img src="" class='Hero' alt="" id='enemy_sup1' onclick="">
+    </div>
+  </div>
+
+  <p id="choose_team" class="choose_team" style="display:none"><strong>可點選我方英雄進行更換</strong></p>
+  <div id="team" class="team" style="display:none">
+    <strong>我方隊伍</strong>
+    <div style="text-align:center; width: 20%; overflow: scroll;">
+      <img src="" class='Hero' alt="" id='team_tank0'>
+    </div>
+    <div style="text-align:center; width: 20%; overflow: scroll;">
+      <img src="" class='Hero' alt="" id='team_dps0'>
+      <img src="" class='Hero' alt="" id='team_dps1'>
+    </div>
+    <div style="text-align:center; width: 20%; overflow: scroll;">
+      <img src="" class='Hero' alt="" id='team_sup0'>
+      <img src="" class='Hero' alt="" id='team_sup1'>
+    </div>
+  </div>
+
+  <p id="choose_hero" class="choose_hero" style="display:none"><strong>點選敵方英雄</strong></p>
+  <div id="hero" class="hero" style="display:none">
+    <img src="hero/tank.png" alt="tank" height="10%">
+    <div style="text-align:center; width: 20%; overflow: scroll;">
+      <img src="hero/tank0.png" class="Hero" id="垃圾鎮女王" alt="垃圾鎮女王" onclick="select(0)">
+      <img src="hero/tank1.png" class="Hero" id="席格馬" alt="席格馬" onclick="select(1)">
+      <img src="hero/tank2.png" class="Hero" id="攔路豬" alt="攔路豬" onclick="select(2)">
+      <img src="hero/tank3.png" class="Hero" id="札莉雅" alt="札莉雅" onclick="select(3)">
+      <img src="hero/tank4.png" class="Hero" id="歐瑞莎" alt="歐瑞莎" onclick="select(4)">
+      <img src="hero/tank5.png" class="Hero" id="毀滅拳王" alt="毀滅拳王" onclick="select(5)">
+      <img src="hero/tank6.png" class="Hero" id="溫斯頓" alt="溫斯頓" onclick="select(6)">
+      <img src="hero/tank7.png" class="Hero" id="火爆鋼球" alt="火爆鋼球" onclick="select(7)">
+      <img src="hero/tank8.png" class="Hero" id="萊茵哈特" alt="萊茵哈特" onclick="select(8)">
+      <img src="hero/tank9.png" class="Hero" id="DVA" alt="DVA" onclick="select(9)">
+    </div>
+    <img src="hero/dps.png" alt="dps" height="10%">
+    <div style="text-align:center; width: 38%; overflow: scroll;">
+      <img src="hero/dps0.png" class="Hero" id="半藏" alt="半藏" onclick="select(10)">
+      <img src="hero/dps1.png" class="Hero" id="卡西迪" alt="卡西迪" onclick="select(11)">
+      <img src="hero/dps2.png" class="Hero" id="壁壘機兵" alt="壁壘機兵" onclick="select(12)">
+      <img src="hero/dps3.png" class="Hero" id="士兵76" alt="士兵76" onclick="select(13)">
+      <img src="hero/dps4.png" class="Hero" id="奪命女" alt="奪命女" onclick="select(14)">
+      <img src="hero/dps5.png" class="Hero" id="小美" alt="小美" onclick="select(15)">
+      <img src="hero/dps6.png" class="Hero" id="托比昂" alt="托比昂" onclick="select(16)">
+      <img src="hero/dps7.png" class="Hero" id="死神" alt="死神" onclick="select(17)">
+      <img src="hero/dps8.png" class="Hero" id="法拉" alt="法拉" onclick="select(18)">
+      <img src="hero/dps9.png" class="Hero" id="源氏" alt="源氏" onclick="select(19)">
+      <img src="hero/dps10.png" class="Hero" id="炸彈鼠" alt="炸彈鼠" onclick="select(20)">
+      <img src="hero/dps11.png" class="Hero" id="索潔恩" alt="索潔恩" onclick="select(21)">
+      <img src="hero/dps12.png" class="Hero" id="艾西" alt="艾西" onclick="select(22)">
+      <img src="hero/dps13.png" class="Hero" id="辛梅塔" alt="辛梅塔" onclick="select(23)">
+      <img src="hero/dps14.png" class="Hero" id="迴音" alt="迴音" onclick="select(24)">
+      <img src="hero/dps15.png" class="Hero" id="閃光" alt="閃光" onclick="select(25)">
+      <img src="hero/dps16.png" class="Hero" id="駭影" alt="駭影" onclick="select(26)">
+    </div>
+    <img src="hero/sup.png" alt="sup" height="10%">
+    <div style="text-align:center; width: 20%; overflow: scroll;">
+      <img src="hero/sup0.png" class="Hero" id="安娜" alt="安娜" onclick="select(27)">
+      <img src="hero/sup1.png" class="Hero" id="巴帝斯特" alt="巴帝斯特" onclick="select(28)">
+      <img src="hero/sup2.png" class="Hero" id="慈悲" alt="慈悲" onclick="select(29)">
+      <img src="hero/sup3.png" class="Hero" id="碧姬" alt="碧姬" onclick="select(30)">
+      <img src="hero/sup4.png" class="Hero" id="禪亞塔" alt="禪亞塔" onclick="select(31)">
+      <img src="hero/sup5.png" class="Hero" id="莫伊拉" alt="莫伊拉" onclick="select(32)">
+      <img src="hero/sup6.png" class="Hero" id="路西歐" alt="路西歐" onclick="select(33)">
+      <img src="hero/sup7.png" class="Hero" id="霧子" alt="霧子" onclick="select(34)">
+    </div>
+  </div>
+</body>
+
+</html>
