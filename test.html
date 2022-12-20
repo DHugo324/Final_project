@@ -213,7 +213,7 @@
       width: 90%;
     }
 
-    .intro_main .hero {
+    .intro_main .heroname {
       font-weight: bold;
       color: rgb(255, 140, 0);
     }
@@ -309,6 +309,7 @@
       $("#ult").click(function () { //點擊開始後
         $("#start").unbind();
         $("#percent").hide();
+        $("#navbar").fadeOut(1000);
         $("#title_logo").fadeOut(1000);
         $("#start").fadeOut(1000);
         $("#hero").fadeIn(2000);
@@ -651,7 +652,7 @@
     <div class="intro_main">
       <h1 style="display: inline;">英雄介紹</h1>
       <div class="intro_sub">
-        <h2 class="hero" id="heroname"></h2>
+        <h2 class="heroname" id="heroname"></h2>
         <p class="from" style="text-indent: 1em;">
           <img src="loc.png" alt="loc" title="loc" height="16px" width="16px">
           <span id="from"></span>
