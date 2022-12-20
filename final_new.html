@@ -550,7 +550,7 @@
               // console.log(n.name);
               document.getElementById("heroname").innerHTML = n["name"];
               document.getElementById("from").innerHTML = n["from"];
-              document.getElementById("intro").innerHTML = n["intro"];
+              document.getElementById("intro_hero").innerHTML = n["intro"];
             }
           })
         },
@@ -559,7 +559,7 @@
         }
       });
     }
-    function intro(selected_hero_idx) {
+    function intro_hero(selected_hero_idx) {
       console.log("click" + selected_hero_idx);
       call_intro(selected_hero_idx);
       document.getElementById("infoModal").showModal();
@@ -600,41 +600,41 @@
     <div class="dropdown">
       <div class="dropbtn"> 英雄介紹 </div>
       <div class="dropdown-content">
-        <div onclick="intro(0)">垃圾鎮女王</div>
-        <div onclick="intro(1)">席格馬</div>
-        <div onclick="intro(2)">攔路豬</div>
-        <div onclick="intro(3)">札莉雅</div>
-        <div onclick="intro(4)">歐瑞莎</div>
-        <div onclick="intro(5)">毀滅拳王</div>
-        <div onclick="intro(6)">溫斯頓</div>
-        <div onclick="intro(7)">火爆鋼球</div>
-        <div onclick="intro(8)">萊茵哈特</div>
-        <div onclick="intro(9)">D.VA</div>
-        <div onclick="intro(10)">半藏</div>
-        <div onclick="intro(11)">卡西迪</div>
-        <div onclick="intro(12)">壁壘機兵</div>
-        <div onclick="intro(13)">士兵76</div>
-        <div onclick="intro(14)">奪命女</div>
-        <div onclick="intro(15)">小美</div>
-        <div onclick="intro(16)">托比昂</div>
-        <div onclick="intro(17)">死神</div>
-        <div onclick="intro(18)">法拉</div>
-        <div onclick="intro(19)">源氏</div>
-        <div onclick="intro(20)">炸彈鼠</div>
-        <div onclick="intro(21)">索潔恩</div>
-        <div onclick="intro(22)">艾西</div>
-        <div onclick="intro(23)">辛梅塔</div>
-        <div onclick="intro(24)">迴音</div>
-        <div onclick="intro(25)">閃光</div>
-        <div onclick="intro(26)">駭影</div>
-        <div onclick="intro(27)">安娜</div>
-        <div onclick="intro(28)">巴帝斯特</div>
-        <div onclick="intro(29)">慈悲</div>
-        <div onclick="intro(30)">碧姬</div>
-        <div onclick="intro(31)">禪亞塔</div>
-        <div onclick="intro(32)">莫伊拉</div>
-        <div onclick="intro(33)">路西歐</div>
-        <div onclick="intro(34)">霧子</div>
+        <div onclick="intro_hero(0)">垃圾鎮女王</div>
+        <div onclick="intro_hero(1)">席格馬</div>
+        <div onclick="intro_hero(2)">攔路豬</div>
+        <div onclick="intro_hero(3)">札莉雅</div>
+        <div onclick="intro_hero(4)">歐瑞莎</div>
+        <div onclick="intro_hero(5)">毀滅拳王</div>
+        <div onclick="intro_hero(6)">溫斯頓</div>
+        <div onclick="intro_hero(7)">火爆鋼球</div>
+        <div onclick="intro_hero(8)">萊茵哈特</div>
+        <div onclick="intro_hero(9)">D.VA</div>
+        <div onclick="intro_hero(10)">半藏</div>
+        <div onclick="intro_hero(11)">卡西迪</div>
+        <div onclick="intro_hero(12)">壁壘機兵</div>
+        <div onclick="intro_hero(13)">士兵76</div>
+        <div onclick="intro_hero(14)">奪命女</div>
+        <div onclick="intro_hero(15)">小美</div>
+        <div onclick="intro_hero(16)">托比昂</div>
+        <div onclick="intro_hero(17)">死神</div>
+        <div onclick="intro_hero(18)">法拉</div>
+        <div onclick="intro_hero(19)">源氏</div>
+        <div onclick="intro_hero(20)">炸彈鼠</div>
+        <div onclick="intro_hero(21)">索潔恩</div>
+        <div onclick="intro_hero(22)">艾西</div>
+        <div onclick="intro_hero(23)">辛梅塔</div>
+        <div onclick="intro_hero(24)">迴音</div>
+        <div onclick="intro_hero(25)">閃光</div>
+        <div onclick="intro_hero(26)">駭影</div>
+        <div onclick="intro_hero(27)">安娜</div>
+        <div onclick="intro_hero(28)">巴帝斯特</div>
+        <div onclick="intro_hero(29)">慈悲</div>
+        <div onclick="intro_hero(30)">碧姬</div>
+        <div onclick="intro_hero(31)">禪亞塔</div>
+        <div onclick="intro_hero(32)">莫伊拉</div>
+        <div onclick="intro_hero(33)">路西歐</div>
+        <div onclick="intro_hero(34)">霧子</div>
       </div>
     </div>
   </div>
@@ -651,7 +651,7 @@
           <span id="from"></span>
         </p>
         <h3 style="color: rgb(255, 140, 0);">簡介</h3>
-        <p class="intro" id="intro" style="text-indent: 1em; text-align: justify;"></p>
+        <p class="intro_hero" id="intro_hero" style="text-indent: 1em; text-align: justify;"></p>
       </div>
     </div>
   </dialog>
