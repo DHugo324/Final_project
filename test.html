@@ -126,6 +126,7 @@
       height: 500px;
       left: calc(50% - 350px);
       top: calc(50% - 250px);
+      color: white;
       border: none;
       box-shadow: 0 2px 6px #ccc;
       border-radius: 10px;
@@ -207,11 +208,6 @@
       padding: 0;
       margin: 0 auto;
       width: 90%;
-    }
-
-    .intro_main .heroname {
-      font-weight: bold;
-      color: rgb(255, 140, 0);
     }
 
     .intro_sub {
@@ -648,12 +644,13 @@
     <div class="intro_main">
       <h1 style="display: inline;">英雄介紹</h1>
       <div class="intro_sub">
-        <h2 class="heroname" id="heroname"></h2>
+        <h2 class="heroname" id="heroname" style="font-weight: bold;
+      color: rgb(255, 140, 0);"></h2>
         <p class="from" style="text-indent: 1em;">
           <img src="loc.png" alt="loc" title="loc" height="16px" width="16px">
           <span id="from"></span>
         </p>
-        <h3>簡介</h3>
+        <h3 style="color: rgb(255, 140, 0);">簡介</h3>
         <p class="intro" id="intro" style="text-indent: 1em; text-align: justify;"></p>
       </div>
     </div>
