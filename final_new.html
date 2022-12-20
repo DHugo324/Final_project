@@ -301,10 +301,10 @@
       $("#ult").click(function () { //點擊開始後
         $("#start").unbind();
         $("#percent").hide();
-        $("#title_logo").fadeOut(1000);
+        $("#title_logo").fadeOut(1000, function(){
+          $("#navbar").fadeIn(1000);});
         $("#start").fadeOut(1000);
         $("#hero").fadeIn(2000);
-        $("#navbar").fadeIn(2000);
         blink('#choose_hero');
       });
 
