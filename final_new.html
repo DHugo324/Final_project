@@ -275,8 +275,8 @@
 
       $("#start") //滑鼠滑入變成隨機大招圖標
         .mouseover(function () {
-          var pic = Math.floor(Math.random() * 32 + 1);
-          $(this).find("img").attr("src", "ult/" + String(1 + pic).padStart(2, "0") + ".jpg");
+          var pic = Math.floor(Math.random() * 32) + 1;
+          $(this).find("img").attr("src", "ult/" + String(pic).padStart(2, "0") + ".jpg");
         })
         .mouseout(function () {
           $(this).find("img").attr("src", "start.png");
