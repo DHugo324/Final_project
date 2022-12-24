@@ -586,7 +586,6 @@
       recommended();
     }
     function intro_hero(selected_hero_idx) {
-      console.log("click" + selected_hero_idx);
       call_intro(selected_hero_idx);
       document.getElementById("infoModal").showModal();
     }
@@ -633,8 +632,8 @@
       });
     }
     function intro_kind(kind) {
-      document.getElementById("hero_kind").showModal();
       call_kind(kind);
+      document.getElementById("hero_kind").showModal();
     }
     function kind_close() {
       document.getElementById("hero_kind").close();
