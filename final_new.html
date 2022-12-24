@@ -542,8 +542,8 @@
       id = Math.floor(Math.random() * 10);
       recommend_item = document.getElementById("interest1");
       recommend_item.setAttribute("src", "hero/tank" + String(id) + ".png");
-      recommend_item.setAttribute("alt", hero[i]);
-      recommend_item.setAttribute("title", hero[i]);
+      recommend_item.setAttribute("alt", hero[id]);
+      recommend_item.setAttribute("title", hero[id]);
       recommend_item.setAttribute("onclick", call_intro(id));
       id = Math.floor(Math.random() * 17);
       recommend_item = document.getElementById("interest2");
