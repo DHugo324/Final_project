@@ -71,6 +71,10 @@
       width: auto;
     }
 
+    nav {
+      font-size: 0;
+    }
+
     .container {
       position: fixed;
       font-size: 140%;
@@ -137,15 +141,11 @@
       width: 150px;
       overflow: hidden;
       background-color: #333;
-    }
-
-    .navbar a {
-      float: left;
-      font-size: 16px;
-      color: white;
-      text-align: center;
-      padding: 14px 16px;
-      text-decoration: none;
+      box-sizing: border-box;
+      display: inline-flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
     }
 
     .dropdown {
@@ -160,6 +160,7 @@
       border: none;
       outline: none;
       color: white;
+      box-sizing: border-box;
       padding: 14px 16px;
       background-color: inherit;
       font-family: inherit;
@@ -173,7 +174,7 @@
 
     .dropdown-content {
       width: 150px;
-      height: 100%;
+      height: auto;
       overflow: auto;
       display: none;
       position: absolute;
@@ -189,6 +190,7 @@
       text-decoration: none;
       display: block;
       text-align: left;
+      font-size: medium;
     }
 
     .dropdown-content div:hover {
@@ -301,8 +303,10 @@
       $("#ult").click(function () { //點擊開始後
         $("#start").unbind();
         $("#percent").hide();
-        $("#title_logo").fadeOut(1000, function(){
-          $("#navbar").fadeIn(1000);});
+        $("#title_logo").fadeOut(1000, function () {
+          $("#navbar").fadeIn(1000);
+          $("#navbar2").fadeIn(1000);
+        });
         $("#start").fadeOut(1000);
         $("#hero").fadeIn(2000);
         blink('#choose_hero');
@@ -550,7 +554,7 @@
               // console.log(n.name);
               document.getElementById("heroname").innerHTML = n["name"];
               document.getElementById("from").innerHTML = n["from"];
-              document.getElementById("intro_hero").innerHTML = n["intro"];
+              document.getElementById("introhero").innerHTML = n["intro"];
             }
           })
         },
@@ -564,8 +568,39 @@
       call_intro(selected_hero_idx);
       document.getElementById("infoModal").showModal();
     }
-    function clo() {
+    function info_close() {
       document.getElementById("infoModal").close();
+    }
+    function call_kind(kind) {
+      $.ajax({
+        type: "GET",
+        url: "hero_kind.json",
+        dataType: "json",
+        success: function (data) {
+          // console.log(data);
+          // console.log(data.hero);
+          //使用$.each方法遍歷返回的資料
+          $.each(data.hero, function (i, n) {
+            if (i == selected_hero_idx) {
+              // console.log(i);
+              // console.log(n);
+              // console.log(n.name);
+              document.getElementById("kindname").innerHTML = n["name"];
+              document.getElementById("introkind").innerHTML = n["intro"];
+            }
+          })
+        },
+        error: function (xhr) {
+          window.alert("Error");
+        }
+      });
+    }
+    function intro_kind(kind) {
+      document.getElementById("hero_kind").showModal();
+      call_kind(kind);
+    }
+    function kind_close() {
+      document.getElementById("hero_kind").close();
     }
   </script>
 </head>
@@ -596,50 +631,62 @@
   <div id="start">
     <img id="ult" class="start" alt="start" src="start.png" width="130">
   </div>
-  <div class="navbar" id="navbar" style="display:none">
-    <div class="dropdown">
-      <div class="dropbtn"> 英雄介紹 </div>
-      <div class="dropdown-content">
-        <div onclick="intro_hero(0)">垃圾鎮女王</div>
-        <div onclick="intro_hero(1)">席格馬</div>
-        <div onclick="intro_hero(2)">攔路豬</div>
-        <div onclick="intro_hero(3)">札莉雅</div>
-        <div onclick="intro_hero(4)">歐瑞莎</div>
-        <div onclick="intro_hero(5)">毀滅拳王</div>
-        <div onclick="intro_hero(6)">溫斯頓</div>
-        <div onclick="intro_hero(7)">火爆鋼球</div>
-        <div onclick="intro_hero(8)">萊茵哈特</div>
-        <div onclick="intro_hero(9)">D.VA</div>
-        <div onclick="intro_hero(10)">半藏</div>
-        <div onclick="intro_hero(11)">卡西迪</div>
-        <div onclick="intro_hero(12)">壁壘機兵</div>
-        <div onclick="intro_hero(13)">士兵76</div>
-        <div onclick="intro_hero(14)">奪命女</div>
-        <div onclick="intro_hero(15)">小美</div>
-        <div onclick="intro_hero(16)">托比昂</div>
-        <div onclick="intro_hero(17)">死神</div>
-        <div onclick="intro_hero(18)">法拉</div>
-        <div onclick="intro_hero(19)">源氏</div>
-        <div onclick="intro_hero(20)">炸彈鼠</div>
-        <div onclick="intro_hero(21)">索潔恩</div>
-        <div onclick="intro_hero(22)">艾西</div>
-        <div onclick="intro_hero(23)">辛梅塔</div>
-        <div onclick="intro_hero(24)">迴音</div>
-        <div onclick="intro_hero(25)">閃光</div>
-        <div onclick="intro_hero(26)">駭影</div>
-        <div onclick="intro_hero(27)">安娜</div>
-        <div onclick="intro_hero(28)">巴帝斯特</div>
-        <div onclick="intro_hero(29)">慈悲</div>
-        <div onclick="intro_hero(30)">碧姬</div>
-        <div onclick="intro_hero(31)">禪亞塔</div>
-        <div onclick="intro_hero(32)">莫伊拉</div>
-        <div onclick="intro_hero(33)">路西歐</div>
-        <div onclick="intro_hero(34)">霧子</div>
+  <nav>
+    <div class="navbar" id="navbar" style="display:none">
+      <div class="dropdown">
+        <div class="dropbtn"> 英雄介紹 </div>
+        <div class="dropdown-content">
+          <div onclick="intro_hero(0)">垃圾鎮女王</div>
+          <div onclick="intro_hero(1)">席格馬</div>
+          <div onclick="intro_hero(2)">攔路豬</div>
+          <div onclick="intro_hero(3)">札莉雅</div>
+          <div onclick="intro_hero(4)">歐瑞莎</div>
+          <div onclick="intro_hero(5)">毀滅拳王</div>
+          <div onclick="intro_hero(6)">溫斯頓</div>
+          <div onclick="intro_hero(7)">火爆鋼球</div>
+          <div onclick="intro_hero(8)">萊茵哈特</div>
+          <div onclick="intro_hero(9)">D.VA</div>
+          <div onclick="intro_hero(10)">半藏</div>
+          <div onclick="intro_hero(11)">卡西迪</div>
+          <div onclick="intro_hero(12)">壁壘機兵</div>
+          <div onclick="intro_hero(13)">士兵76</div>
+          <div onclick="intro_hero(14)">奪命女</div>
+          <div onclick="intro_hero(15)">小美</div>
+          <div onclick="intro_hero(16)">托比昂</div>
+          <div onclick="intro_hero(17)">死神</div>
+          <div onclick="intro_hero(18)">法拉</div>
+          <div onclick="intro_hero(19)">源氏</div>
+          <div onclick="intro_hero(20)">炸彈鼠</div>
+          <div onclick="intro_hero(21)">索潔恩</div>
+          <div onclick="intro_hero(22)">艾西</div>
+          <div onclick="intro_hero(23)">辛梅塔</div>
+          <div onclick="intro_hero(24)">迴音</div>
+          <div onclick="intro_hero(25)">閃光</div>
+          <div onclick="intro_hero(26)">駭影</div>
+          <div onclick="intro_hero(27)">安娜</div>
+          <div onclick="intro_hero(28)">巴帝斯特</div>
+          <div onclick="intro_hero(29)">慈悲</div>
+          <div onclick="intro_hero(30)">碧姬</div>
+          <div onclick="intro_hero(31)">禪亞塔</div>
+          <div onclick="intro_hero(32)">莫伊拉</div>
+          <div onclick="intro_hero(33)">路西歐</div>
+          <div onclick="intro_hero(34)">霧子</div>
+        </div>
       </div>
     </div>
-  </div>
+    <div class="navbar" id="navbar2" style="display:none">
+      <div class="dropdown">
+        <div class="dropbtn"> 英雄種類 </div>
+        <div class="dropdown-content">
+          <div onclick="intro_kind(0)">肉盾型</div>
+          <div onclick="intro_kind(1)">攻擊型</div>
+          <div onclick="intro_kind(2)">輔助型</div>
+        </div>
+      </div>
+    </div>
+  </nav>
   <dialog id="infoModal">
-    <img src="x.png" alt="close" title="關閉" id="clo" height="40px" width="40px" onclick="clo()"
+    <img src="x.png" alt="close" title="關閉" id="clo" height="40px" width="40px" onclick="info_close()"
       style="float: right; border: 1px solid rgb(255, 140, 0); display: inline;">
     <div class="intro_main">
       <h1 style="display: inline;">英雄介紹</h1>
@@ -651,7 +698,20 @@
           <span id="from"></span>
         </p>
         <h3 style="color: rgb(255, 140, 0);">簡介</h3>
-        <p class="intro_hero" id="intro_hero" style="text-indent: 1em; text-align: justify;"></p>
+        <p class="introhero" id="introhero" style="text-indent: 1em; text-align: justify;"></p>
+      </div>
+    </div>
+  </dialog>
+  <dialog id="hero_kind">
+    <img src="x.png" alt="close" title="關閉" id="clo" height="40px" width="40px" onclick="kind_close()"
+      style="float: right; border: 1px solid rgb(255, 140, 0); display: inline;">
+    <div class="intro_main">
+      <h1 style="display: inline;">英雄類型介紹</h1>
+      <div class="intro_sub">
+        <h2 class="kindname" id="kindname" style="font-weight: bold;
+            color: rgb(255, 140, 0);"></h2>
+        <h3 style="color: rgb(255, 140, 0);">簡介</h3>
+        <p class="introkind" id="introkind" style="text-indent: 1em; text-align: justify;"></p>
       </div>
     </div>
   </dialog>
