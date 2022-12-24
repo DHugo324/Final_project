@@ -540,18 +540,27 @@
     function recommended() {
       var id, recommend_item;
       id = Math.floor(Math.random() * 10);
+      while (String(hero[id]) == document.getElementById("heroname").innerHTML) {
+        id = Math.floor(Math.random() * 10);
+      }
       recommend_item = document.getElementById("interest1");
       recommend_item.setAttribute("src", "hero/tank" + String(id) + ".png");
       recommend_item.setAttribute("alt", String(hero[id]));
       recommend_item.setAttribute("title", String(hero[id]));
       recommend_item.setAttribute("onclick", "call_intro(" + String(id) + ")");
       id = Math.floor(Math.random() * 17);
+      while (String(hero[id + 10]) == document.getElementById("heroname").innerHTML) {
+        id = Math.floor(Math.random() * 10);
+      }
       recommend_item = document.getElementById("interest2");
       recommend_item.setAttribute("src", "hero/dps" + String(id) + ".png");
       recommend_item.setAttribute("alt", String(hero[id + 10]));
       recommend_item.setAttribute("title", String(hero[id + 10]));
       recommend_item.setAttribute("onclick", "call_intro(" + String(id + 10) + ")");
       id = Math.floor(Math.random() * 8);
+      while (String(hero[id + 27]) == document.getElementById("heroname").innerHTML) {
+        id = Math.floor(Math.random() * 10);
+      }
       recommend_item = document.getElementById("interest3");
       recommend_item.setAttribute("src", "hero/sup" + String(id) + ".png");
       recommend_item.setAttribute("alt", String(hero[id + 27]));
@@ -737,7 +746,7 @@
         <p class="introhero" id="introhero" style="text-indent: 1em; text-align: justify;"></p>
         <br>
         <div style="position: absolute; bottom: 0px;">
-          <h3 style="color: rgb(255, 140, 0);">其他你可能感興趣的英雄</h3>
+          <h3 style="color: rgb(255, 140, 0);">你可能感興趣的英雄</h3>
           <img src="" class="interesting" id="interest1" alt="" title="" onclick="" width="80px">
           <img src="" class="interesting" id="interest2" alt="" title="" onclick="" width="80px">
           <img src="" class="interesting" id="interest3" alt="" title="" onclick="" width="80px">
