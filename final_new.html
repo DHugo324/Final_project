@@ -544,19 +544,19 @@
       recommend_item.setAttribute("src", "hero/tank" + String(id) + ".png");
       recommend_item.setAttribute("alt", String(hero[id]));
       recommend_item.setAttribute("title", String(hero[id]));
-      recommend_item.setAttribute("onclick", call_intro(String(id)));
+      recommend_item.setAttribute("onclick", "call_intro(" + String(id) + ")");
       id = Math.floor(Math.random() * 17);
       recommend_item = document.getElementById("interest2");
       recommend_item.setAttribute("src", "hero/dps" + String(id) + ".png");
       recommend_item.setAttribute("alt", String(hero[id + 11]));
       recommend_item.setAttribute("title", String(hero[id + 11]));
-      recommend_item.setAttribute("onclick", call_intro(String(id + 11)));
+      recommend_item.setAttribute("onclick", "call_intro(" + String(id + 11) + ")");
       id = Math.floor(Math.random() * 8);
       recommend_item = document.getElementById("interest3");
       recommend_item.setAttribute("src", "hero/sup" + String(id) + ".png");
       recommend_item.setAttribute("alt", String(hero[id + 28]));
       recommend_item.setAttribute("title", String(hero[id + 28]));
-      recommend_item.setAttribute("onclick", call_intro(String(id + 28)));
+      recommend_item.setAttribute("onclick", "call_intro(" + String(id + 28) + ")");
     }
     function call_intro(selected_hero_idx) {
       // console.log(selected_hero_idx);
