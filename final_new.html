@@ -540,19 +540,19 @@
     function recommended() {
       var id;
       id = Math.floor(Math.random() * 10);
-      recommend_item = document.getElementById("interest" + String(i));
+      recommend_item = document.getElementById("interest1");
       recommend_item.setAttribute("src", "tank" + String(id));
       recommend_item.setAttribute("alt", hero[i]);
       recommend_item.setAttribute("title", hero[i]);
       recommend_item.setAttribute("onclick", call_intro(id));
       id = Math.floor(Math.random() * 17);
-      recommend_item = document.getElementById("interest" + String(i));
+      recommend_item = document.getElementById("interest2");
       recommend_item.setAttribute("src", "dps" + String(id));
       recommend_item.setAttribute("alt", hero[id + 11]);
       recommend_item.setAttribute("title", hero[id + 11]);
       recommend_item.setAttribute("onclick", call_intro(id + 11));
       id = Math.floor(Math.random() * 8);
-      recommend_item = document.getElementById("interest" + String(i));
+      recommend_item = document.getElementById("interest3");
       recommend_item.setAttribute("src", "sup" + String(id));
       recommend_item.setAttribute("alt", hero[id + 28]);
       recommend_item.setAttribute("title", hero[id + 28]);
