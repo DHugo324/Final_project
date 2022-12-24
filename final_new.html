@@ -537,10 +537,10 @@
       //console.log(counter_cnt);
     }
 
-    function recommended() {
+    function recommended(now_hero) {
       var id, recommend_item;
       id = Math.floor(Math.random() * 10);
-      while (String(hero[id]) == document.getElementById("heroname").innerHTML) {
+      while (id == now_hero) {
         id = Math.floor(Math.random() * 10);
       }
       recommend_item = document.getElementById("interest1");
@@ -549,7 +549,7 @@
       recommend_item.setAttribute("title", String(hero[id]));
       recommend_item.setAttribute("onclick", "call_intro(" + String(id) + ")");
       id = Math.floor(Math.random() * 17);
-      while (String(hero[id + 10]) == document.getElementById("heroname").innerHTML) {
+      while (id + 10 == now_hero) {
         id = Math.floor(Math.random() * 17);
       }
       recommend_item = document.getElementById("interest2");
@@ -558,11 +558,9 @@
       recommend_item.setAttribute("title", String(hero[id + 10]));
       recommend_item.setAttribute("onclick", "call_intro(" + String(id + 10) + ")");
       id = Math.floor(Math.random() * 8);
-      while (String(hero[id + 27]) == document.getElementById("heroname").innerHTML) {
+      while (id + 27 == now_hero) {
         id = Math.floor(Math.random() * 8);
       }
-      console.log(String(hero[id + 27]) + " " + document.getElementById("heroname").innerHTML)
-      console.log(String(hero[id + 27]) == document.getElementById("heroname").innerHTML);
       recommend_item = document.getElementById("interest3");
       recommend_item.setAttribute("src", "hero/sup" + String(id) + ".png");
       recommend_item.setAttribute("alt", String(hero[id + 27]));
@@ -594,7 +592,7 @@
           window.alert("Error");
         }
       });
-      recommended();
+      recommended(selected_hero_idx);
     }
     function intro_hero(selected_hero_idx) {
       call_intro(selected_hero_idx);
