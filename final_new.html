@@ -561,7 +561,7 @@
       while (String(hero[id + 27]) == document.getElementById("heroname").innerHTML) {
         id = Math.floor(Math.random() * 8);
       }
-      console.log(id);
+      console.log(document.getElementById("heroname").innerHTML);
       recommend_item = document.getElementById("interest3");
       recommend_item.setAttribute("src", "hero/sup" + String(id) + ".png");
       recommend_item.setAttribute("alt", String(hero[id + 27]));
