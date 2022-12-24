@@ -537,10 +537,11 @@
       //console.log(counter_cnt);
     }
 
-    function recommended(now_hero) {
+    var last_choose;
+    function recommended() {
       var id, recommend_item;
       id = Math.floor(Math.random() * 10);
-      while (id == now_hero) {
+      while (id == last_choose) {
         id = Math.floor(Math.random() * 10);
       }
       recommend_item = document.getElementById("interest1");
@@ -549,7 +550,7 @@
       recommend_item.setAttribute("title", String(hero[id]));
       recommend_item.setAttribute("onclick", "call_intro(" + String(id) + ")");
       id = Math.floor(Math.random() * 17);
-      while (id + 10 == now_hero) {
+      while (id + 10 == last_choose) {
         id = Math.floor(Math.random() * 17);
       }
       recommend_item = document.getElementById("interest2");
@@ -558,7 +559,7 @@
       recommend_item.setAttribute("title", String(hero[id + 10]));
       recommend_item.setAttribute("onclick", "call_intro(" + String(id + 10) + ")");
       id = Math.floor(Math.random() * 8);
-      while (id + 27 == now_hero) {
+      while (id + 27 == last_choose) {
         id = Math.floor(Math.random() * 8);
       }
       recommend_item = document.getElementById("interest3");
@@ -592,7 +593,8 @@
           window.alert("Error");
         }
       });
-      recommended(selected_hero_idx);
+      last_choose = selected_hero_idx;
+      recommended();
     }
     function intro_hero(selected_hero_idx) {
       call_intro(selected_hero_idx);
@@ -748,7 +750,7 @@
         <div style="position: absolute; bottom: 0px;">
 
           <h3 style="color: rgb(255, 140, 0);">你可能感興趣的英雄
-            <img src="refresh.png" alt="refresh" title="刷新" height="16px" width="16px" onclick="recommended()"
+            <img src="refresh.png" alt="refresh" title="刷新" height="16px" width="16px" onclick="recommended(-1)"
               style="display: inline;">
           </h3>
           <img src="" class="interesting" id="interest1" alt="" title="" onclick="" width="80px">
